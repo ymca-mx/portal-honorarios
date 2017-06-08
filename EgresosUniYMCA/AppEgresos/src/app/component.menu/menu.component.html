@@ -1,0 +1,36 @@
+﻿
+<div class="page-header-menu navbar-inverse" style="display:block;">
+  <div class="container">
+    <div class='navbar hor-menu navbar-inverse' style="border-color:transparent">
+      <div class="container-fluid">
+        <div class='navbar-header'>
+          <button type='button' class='navbar-toggle' data-toggle='collapse' data-target='#myNavbar'>
+            <span class='sr-only'>Toggle navigation</span>
+            <span class='icon-bar'></span>
+            <span class='icon-bar'></span>
+            <span class='icon-bar'></span>
+          </button>
+          <a class='navbar-brand' [routerLink]="['/home']">Home</a>
+        </div>
+        <div class="collapse navbar-collapse" id="myNavbar">
+          <ul class='nav navbar-nav'>
+            <li [routerLinkActive]="['link-active']" class="dropdown" >
+              <div class="btn-group" dropdown>
+                <button dropdownToggle type="button" class="btn btn-primary dropdown-toggle">
+                  Docente <span class="glyphicon glyphicon-user"></span>
+                </button>
+                <ul *dropdownMenu class="dropdown-menu" role="menu">
+                  <li role="menuitem">
+                    <a class="dropdown-item" [routerLink]="['/AltaDocente']"><span class='glyphicon glyphicon-list'></span> Alta Docente</a>
+                  </li>
+                </ul>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
