@@ -15,7 +15,7 @@ export class AppComponent {
         window.console.log("Estoy Adentro");
         this.Nombre =
             this.http
-            .get('api/value')
+            .get('api/values')
             .subscribe(res=> res.json());
     }
 }
