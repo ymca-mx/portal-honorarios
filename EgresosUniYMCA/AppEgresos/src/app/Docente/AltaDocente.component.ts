@@ -84,7 +84,7 @@ export class AltaDocenteComponent implements OnInit {
     submitted: boolean;
     description: string;
     uploadedFiles: any[] = [];
-    constructor( private  fb: FormBuilder) { }
+    constructor(private http: Http, private  fb: FormBuilder) { }
 
     ngOnInit() {
 
@@ -191,22 +191,22 @@ export class AltaDocenteComponent implements OnInit {
         this.nacional.push({ label: 'Mexicana ', value: '1' });
         this.nacional.push({ label: 'Extranjera ', value: '2' });
        
-        //this.http.get('/api/Catalogos/altadocente').subscribe(result => {
-        //    this.catalogos = result.json();
-        //    //Lugar Nacimiento
-        //    this.nacimientoLugar = this.catalogos.entidades;
-        //    //Genero//
-        //    this.genero = this.catalogos.generos;
-        //    //Estado Civil
-        //    this.estadocivil=this.catalogos.estadosCiviles;
-        //    //Estado//
-        //    this.estado = this.catalogos.entidades;
-        //    this.ChangeEstado();
-        //    this.estadof = this.catalogos.entidades;
-        //    //Municipio  Delegacion//
-        //    this.municipio = this.catalogos.entidades;
-        //    this.municipiof = this.catalogos.entidades;
-        //});
+        this.http.get('//localhost:61175/api/Catalogos/altadocente').subscribe(result => {
+            this.catalogos = result.json();
+            ////Lugar Nacimiento
+            //this.nacimientoLugar = this.catalogos.entidades;
+            ////Genero//
+            //this.genero = this.catalogos.generos;
+            ////Estado Civil
+            //this.estadocivil=this.catalogos.estadosCiviles;
+            ////Estado//
+            //this.estado = this.catalogos.entidades;
+            //this.ChangeEstado();
+            //this.estadof = this.catalogos.entidades;
+            ////Municipio  Delegacion//
+            //this.municipio = this.catalogos.entidades;
+            //this.municipiof = this.catalogos.entidades;
+        });
 
      
     }
@@ -226,9 +226,9 @@ export class AltaDocenteComponent implements OnInit {
     ChangeEstado() {
         
         if (this.sclEstado != "") {
-            //this.http.get('/api/Catalogos/municipio/' + this.sclEstado).subscribe(result => {
-            //    this.municipio = result.json();
-            //});
+            this.http.get('/api/catalogos/municipio/' + this.sclEstado).subscribe(result => {
+                this.municipio = result.json();
+            });
         } else
         {
             this.municipio = [{ label: '--Seleccionar--', value: '' }];
