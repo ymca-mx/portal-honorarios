@@ -214,12 +214,12 @@ namespace EgresosUniYMCA.Models
         // Unable to generate entity type for table 'dbo.AlumnoMatricula'. Please see the warning messages.
         // Unable to generate entity type for table 'dbo.Tabla2'. Please see the warning messages.
         // Unable to generate entity type for table 'dbo.tmpReferencias'. Please see the warning messages.
+        // Unable to generate entity type for table 'Egresos.DocenteDatosFiscales'. Please see the warning messages.
         // Unable to generate entity type for table 'dbo.IdiomasInscrito'. Please see the warning messages.
         // Unable to generate entity type for table 'dbo.AlumnosLE20162'. Please see the warning messages.
         // Unable to generate entity type for table 'Egresos.Grupo'. Please see the warning messages.
         // Unable to generate entity type for table 'dbo.AlumnosLEAgregar20162'. Please see the warning messages.
         // Unable to generate entity type for table 'dbo.COLEGIATURA'. Please see the warning messages.
-        // Unable to generate entity type for table 'Egresos.DocenteDatosFiscales'. Please see the warning messages.
         // Unable to generate entity type for table 'dbo.tmpRelacionAlumno'. Please see the warning messages.
         // Unable to generate entity type for table 'dbo.Saldos'. Please see the warning messages.
         // Unable to generate entity type for table 'dbo.BecaSEPBitacora'. Please see the warning messages.
@@ -242,6 +242,12 @@ namespace EgresosUniYMCA.Models
         // Unable to generate entity type for table 'dbo.AlumnoInscritoBitacoraBKSalome'. Please see the warning messages.
         // Unable to generate entity type for table 'dbo.tmpPago'. Please see the warning messages.
         // Unable to generate entity type for table 'dbo.tmpAlumnoDescuento'. Please see the warning messages.
+
+        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        //{
+        //    #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
+        //    optionsBuilder.UseSqlServer(@"Server=108.163.172.122;Database=Universidad_w;Persist Security Info=True;User ID=usrProgramador;Password=Programador@@23+;MultipleActiveResultSets=True;Application Name=EntityFramework");
+        //}
 
         public UniversidadContext(DbContextOptions<UniversidadContext> options): base(options)
         { }
@@ -2108,6 +2114,10 @@ namespace EgresosUniYMCA.Models
                 entity.Property(e => e.Nss)
                     .HasColumnName("NSS")
                     .HasColumnType("varchar(30)");
+
+                entity.Property(e => e.Rfc)
+                    .HasColumnName("RFC")
+                    .HasColumnType("varchar(50)");
 
                 entity.Property(e => e.TelefonoCasa).HasColumnType("varchar(30)");
 

@@ -8,6 +8,7 @@ namespace EgresosUniYMCA.Models
         public int DocenteId { get; set; }
         public DateTime? FechaNaciminto { get; set; }
         public string Curp { get; set; }
+        public string Rfc { get; set; }
         public string Nss { get; set; }
         public int? GeneroId { get; set; }
         public int? EstadoCivilId { get; set; }
