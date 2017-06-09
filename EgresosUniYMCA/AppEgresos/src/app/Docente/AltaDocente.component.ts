@@ -191,7 +191,7 @@ export class AltaDocenteComponent implements OnInit {
         this.nacional.push({ label: 'Mexicana ', value: '1' });
         this.nacional.push({ label: 'Extranjera ', value: '2' });
        
-        this.http.get('//localhost:61175/api/Catalogos/altadocente').subscribe(result => {
+        this.http.get('/api/Catalogos/altadocente').subscribe(result => {
             this.catalogos = result.json();
             ////Lugar Nacimiento
             //this.nacimientoLugar = this.catalogos.entidades;
