@@ -52,7 +52,7 @@ import { AltaDocenteComponent } from './Docente/AltaDocente.component';
           { path: 'home', component: HomeComponent },
           { path: 'AltaDocente', component: AltaDocenteComponent },
           { path: '**', redirectTo: 'home' }
-      ]),
+      ], { useHash: true }),
       BsDropdownModule.forRoot(),
   ],
   exports: [
