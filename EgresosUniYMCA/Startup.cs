@@ -32,8 +32,8 @@ namespace EgresosUniYMCA
         {
             // Add framework services.
             services.AddMvc();
-            var connection = @"Server=108.163.172.122;Database=Universidad_w;Persist Security Info=True;User ID=usrProgramador;Password=Programador@@23+;MultipleActiveResultSets=True;Application Name=EntityFramework";
-            services.AddDbContext<UniversidadContext>(options => options.UseSqlServer(connection));
+
+            services.AddDbContext<UniversidadContext>(options => options.UseSqlServer( Configuration.GetConnectionString("UniversidadContext")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
