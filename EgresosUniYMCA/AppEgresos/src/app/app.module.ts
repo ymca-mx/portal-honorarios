@@ -4,6 +4,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { AppRouting } from 'app/app.routing';
 import {
     ButtonModule,
     GrowlModule,
@@ -47,12 +48,7 @@ import { AltaDocenteComponent } from './Docente/AltaDocente.component';
       CheckboxModule,
       FileUploadModule,
       BrowserAnimationsModule,
-      RouterModule.forRoot([
-          { path: '', redirectTo: 'home', pathMatch: 'full' },
-          { path: 'home', component: HomeComponent },
-          { path: 'AltaDocente', component: AltaDocenteComponent },
-          { path: '**', redirectTo: 'home' }
-      ]),
+      AppRouting,
       BsDropdownModule.forRoot(),
   ],
   exports: [
