@@ -97,13 +97,13 @@ export class AltaDocenteComponent implements OnInit {
             }
         },
         {
-            label: 'Datos Fiscales',
+            label: 'Formacion Profesional',
             command: (event: any) => {
                 this.activeIndex = 1;
             }
         },
         {
-            label: 'Formacion Profecional',
+            label: 'Datos Adicionales',
             command: (event: any) => {
                 this.activeIndex = 2;
             }
@@ -134,37 +134,18 @@ export class AltaDocenteComponent implements OnInit {
             'nacionalidad': new FormControl('', Validators.required),
             'lugarnacimiento': new FormControl('', Validators.required),
             'curp': new FormControl('', Validators.compose([Validators.required, Validators.minLength(18), Validators.maxLength(18)])),
-            'nss': new FormControl('', Validators.compose([Validators.required, Validators.minLength(11), Validators.maxLength(11)])),
+            'nomigracion': new FormControl('', Validators.compose([Validators.required, Validators.minLength(11), Validators.maxLength(11)])),
             'genero': new FormControl('', Validators.required),
             'estadocivil': new FormControl('', Validators.required),
-            'calle': new FormControl('', Validators.compose([Validators.required, Validators.minLength(3)])),
-            'exterior': new FormControl('', Validators.required),
-            'interior': new FormControl(''),
-            'cp': new FormControl('', Validators.compose([Validators.required,Validators.minLength(5), Validators.maxLength(5)])),
-            'colonia': new FormControl('', Validators.compose([Validators.required, Validators.minLength(3)])),
-            'estado': new FormControl('', Validators.required),
-            'municipio': new FormControl('', Validators.required),
             'celular': new FormControl('', Validators.compose([Validators.required, Validators.minLength(3)])),
             'telcasa': new FormControl('', Validators.compose([Validators.required, Validators.minLength(3)])),
             'teloficina': new FormControl('', Validators.compose([Validators.required, Validators.minLength(3)])),
-            'email': new FormControl('', Validators.required)
+            'email': new FormControl('', Validators.required),
+            'emailuni': new FormControl('', Validators.required),
             
         });
+     
         this.tab2form = this.fb.group({
-            'rfc': new FormControl('', Validators.compose([Validators.required, Validators.minLength(12), Validators.maxLength(13)])),
-            'razon': new FormControl('', Validators.compose([Validators.required, Validators.minLength(3)])),
-            'emailf': new FormControl('', Validators.required),
-            'checked': new FormControl(''),
-            'callef': new FormControl('', Validators.compose([Validators.required, Validators.minLength(3)])),
-            'exteriorf': new FormControl('', Validators.required),
-            'interiorf': new FormControl(''),
-            'cpf': new FormControl('', Validators.compose([Validators.required, Validators.minLength(5), Validators.maxLength(5)])),
-            'coloniaf': new FormControl('', Validators.compose([Validators.required, Validators.minLength(3)])),
-            'estadof': new FormControl('', Validators.required),
-            'municipiof': new FormControl('', Validators.required) 
-
-        });
-        this.tab3form = this.fb.group({
             'institucion': new FormControl('', Validators.required),
             'nivel': new FormControl('', Validators.required),
             'carrera': new FormControl('', Validators.required),
@@ -172,6 +153,21 @@ export class AltaDocenteComponent implements OnInit {
         
 
         });
+
+        this.tab3form = this.fb.group({
+            'calle': new FormControl('', Validators.compose([Validators.required, Validators.minLength(3)])),
+            'exterior': new FormControl('', Validators.required),
+            'interior': new FormControl(''),
+            'cp': new FormControl('', Validators.compose([Validators.required, Validators.minLength(5), Validators.maxLength(5)])),
+            'colonia': new FormControl('', Validators.compose([Validators.required, Validators.minLength(3)])),
+            'estado': new FormControl('', Validators.required),
+            'municipio': new FormControl('', Validators.required),
+            'rfc': new FormControl('', Validators.compose([Validators.required, Validators.minLength(12), Validators.maxLength(13)])),
+            'razon': new FormControl('', Validators.compose([Validators.required, Validators.minLength(3)])),
+            'nocuenta': new FormControl('', Validators.required),
+            'clabe': new FormControl('', Validators.required)
+        });
+
         this.CargarCatalogos();
     }
 
@@ -193,19 +189,19 @@ export class AltaDocenteComponent implements OnInit {
        
         this.http.get('/api/Catalogos/altadocente').subscribe(result => {
             this.catalogos = result.json();
-            ////Lugar Nacimiento
-            //this.nacimientoLugar = this.catalogos.entidades;
-            ////Genero//
-            //this.genero = this.catalogos.generos;
-            ////Estado Civil
-            //this.estadocivil=this.catalogos.estadosCiviles;
-            ////Estado//
-            //this.estado = this.catalogos.entidades;
-            //this.ChangeEstado();
-            //this.estadof = this.catalogos.entidades;
-            ////Municipio  Delegacion//
-            //this.municipio = this.catalogos.entidades;
-            //this.municipiof = this.catalogos.entidades;
+            //Lugar Nacimiento
+            this.nacimientoLugar = this.catalogos.entidades;
+            //Genero//
+            this.genero = this.catalogos.generos;
+            //Estado Civil
+            this.estadocivil=this.catalogos.estadosCiviles;
+            //Estado//
+            this.estado = this.catalogos.entidades;
+            this.ChangeEstado();
+            this.estadof = this.catalogos.entidades;
+            //Municipio  Delegacion//
+            this.municipio = this.catalogos.entidades;
+            this.municipiof = this.catalogos.entidades;
         });
 
      
@@ -269,36 +265,6 @@ export class AltaDocenteComponent implements OnInit {
         
     }
 
-    MismaDireccion()
-    {
-        if (this.checked == true)
-        {
-            this.tab2form.reset(
-                {
-                    checked: true,
-                    callef: this.tab1form.get('calle').value,
-                    exteriorf: this.tab1form.get('exterior').value,
-                    interiorf: this.tab1form.get('interior').value,
-                    cpf: this.tab1form.get('cp').value,
-                    coloniaf: this.tab1form.get('colonia').value,
-                    estadof: this.tab1form.get('estado').value,
-                    municipiof: this.tab1form.get('municipio').value,
-                }); 
-            
-        } else
-        {
-            this.tab2form.reset(
-                {
-                    callef: '',
-                    exteriorf: '',
-                    interiorf: '',
-                    cpf: '',
-                    coloniaf: '',
-                    estadof: '',
-                    municipiof: ''
-                });
-        }
-    }
 
     activarTabs() {
         if (this.activeIndex == 0)

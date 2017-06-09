@@ -46,7 +46,6 @@ import { AltaDocenteComponent } from './Docente/AltaDocente.component';
       CalendarModule,
       CheckboxModule,
       FileUploadModule,
-      HttpModule,
       BrowserAnimationsModule,
       RouterModule.forRoot([
           { path: '', redirectTo: 'home', pathMatch: 'full' },
