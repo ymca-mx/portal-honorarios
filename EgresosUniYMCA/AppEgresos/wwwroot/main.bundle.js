@@ -319,7 +319,7 @@ module.exports = module.exports.toString();
 /***/ "./src/app/app.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"page-header\" style=\"margin-top:0px\">\r\n  <div class=\"top-menu\">\r\n    <div class=\"container\">\r\n      <!--<div class=\"page-logo\">-->\r\n      <img class=\"ymcaimg\" />\r\n      <!--</div>-->\r\n      <ul class=\"nav navbar-nav pull-right\">\r\n        <li class=\"droddown dropdown-separator\">\r\n          <span class=\"separator\"></span>\r\n        </li>\r\n        <li class=\"dropdown dropdown-user dropdown-dark\">\r\n          <a href=\"javascript:;\" class=\"dropdown-toggle\" data-toggle=\"dropdown\" data-hover=\"dropdown\" data-close-others=\"true\" id=\"lblUsuario\">\r\n            <img alt=\"\" class=\"img-circle\" src=\"\" id=\"imgUsuario\" />\r\n            <span class=\"username username-hide-mobile\">Usuario del sistema</span>\r\n          </a>\r\n          <ul class=\"dropdown-menu dropdown-menu-default\">\r\n\r\n            <li>\r\n              <a href=\"javascript:;\">\r\n                <i class=\"glyphicon glyphicon-user\"></i> Mi perfil\r\n              </a>\r\n            </li>\r\n            <li class=\"divider\">\r\n            </li>\r\n            <li>\r\n              <a href=\"\">\r\n                <i class=\"icon-key\"></i> Salir\r\n              </a>\r\n            </li>\r\n          </ul>\r\n        </li>\r\n      </ul>\r\n    </div>\r\n  </div>\r\n  <a href=\"javascript:;\" class=\"menu-toggler\"></a>\r\n\r\n  <MenuComponent></MenuComponent>\r\n</div>\r\n<div class='page-container' style=\"z-index:-1\">\r\n  <div class=\"page-head\" style=\"margin-top:0px\">\r\n    <div class=\"container\">\r\n      <h2>Panel de Control...</h2>\r\n    </div>\r\n  </div>\r\n  <div class='page-content' style=\"border: 1px solid blue; min-height: 565px;\">\r\n    <div class='container'>\r\n      <div class=\"page-container\">\r\n        <div class=\"page-head\" style=\"background-color:white\">\r\n          <div class=\"container\">\r\n            <router-outlet></router-outlet>\r\n          </div>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>\r\n<div class=\"page-prefooter\">\r\n  <div class=\"container\">\r\n    <div class=\"row\">\r\n      <div class=\"col-md-3 col-sm-6 col-xs-12 footer-block\">\r\n        <h2>Acerca de</h2>\r\n        <p>\r\n          Grupo YMCA\r\n        </p>\r\n      </div>\r\n      <div class=\"col-md-3 col-sm-6 col-xs12 footer-block\">\r\n        <h2>Suscríbete</h2>\r\n        <div class=\"subscribe-form\">\r\n          <form action=\"javascript:;\">\r\n            <div class=\"input-group\">\r\n              <input type=\"text\" placeholder=\"mail@email.com\" class=\"form-control\">\r\n              <span class=\"input-group-btn\">\r\n                <button class=\"btn\" type=\"submit\">Submit</button>\r\n              </span>\r\n            </div>\r\n          </form>\r\n        </div>\r\n      </div>\r\n      <div class=\"col-md-3 col-sm-6 col-xs-12 footer-block\">\r\n        <h2>Siguenos</h2>\r\n        <ul class=\"social-icons\">\r\n          <li>\r\n            <a href=\"javascript:;\" data-original-title=\"facebook\"><span class=\"glyphicon glyphicon-thumbs-up fa-inverse\"></span> </a>\r\n          </li>\r\n          <li>\r\n            <a href=\"javascript:;\" data-original-title=\"youtube\" class=\"glyphicon glyphicon-hd-video fa-inverse\"></a>\r\n          </li>\r\n        </ul>\r\n      </div>\r\n      <div class=\"col-md-3 col-sm-6 col-xs-12 footer-block\">\r\n        <h2>Contacto</h2>\r\n        <address class=\"margin-bottom-40\">\r\n          Telefono: 5255-47-05<br>\r\n          Email: <a href=\"mailto:enriquegonsen@uniymca.edu.mx\">enriquegonsen@uniymca.edu.mx</a>\r\n        </address>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>\r\n<div class=\"page-footer\">\r\n  <div class=\"container\">\r\n    2015 &copy; YMCA. Todos los derechos reservados.\r\n  </div>\r\n</div>\r\n<div class=\"scroll-to-top\">\r\n  <i class=\"icon-arrow-up\"></i>\r\n</div>"
+module.exports = "<div class=\"page-header\" style=\"margin-top:0px\">\r\n  <div class=\"top-menu\">\r\n    <div class=\"container\">\r\n      <!--<div class=\"page-logo\">-->\r\n      <img class=\"ymcaimg\" />\r\n      <!--</div>-->\r\n      <ul class=\"nav navbar-nav pull-right\">\r\n        <li class=\"droddown dropdown-separator\">\r\n          <span class=\"separator\"></span>\r\n        </li>\r\n        <li class=\"dropdown dropdown-user dropdown-dark\">\r\n          <a href=\"javascript:;\" class=\"dropdown-toggle\" data-toggle=\"dropdown\" data-hover=\"dropdown\" data-close-others=\"true\" id=\"lblUsuario\">\r\n            <img alt=\"\" class=\"img-circle\" src=\"\" id=\"imgUsuario\" />\r\n            <span class=\"username username-hide-mobile\">Usuario del sistema</span>\r\n          </a>\r\n          <ul class=\"dropdown-menu dropdown-menu-default\">\r\n\r\n            <li>\r\n              <a href=\"javascript:;\">\r\n                <i class=\"glyphicon glyphicon-user\"></i> Mi perfil\r\n              </a>\r\n            </li>\r\n            <li class=\"divider\">\r\n            </li>\r\n            <li>\r\n              <a href=\"\">\r\n                <i class=\"icon-key\"></i> Salir\r\n              </a>\r\n            </li>\r\n          </ul>\r\n        </li>\r\n      </ul>\r\n    </div>\r\n  </div>\r\n  <a href=\"javascript:;\" class=\"menu-toggler\"></a>\r\n\r\n  <MenuComponent></MenuComponent>\r\n</div>\r\n<div class='page-container' style=\"z-index:-1\">\r\n  <div class=\"page-head\" style=\"margin-top:0px\">\r\n    <div class=\"container\">\r\n      <h2>Panel de Control...</h2>\r\n    </div>\r\n  </div>\r\n  <div class='page-content' style=\"border: 1px solid blue; min-height: 565px;\">\r\n    <div class='container'>\r\n      <div class=\"page-container\">\r\n        <div class=\"page-head\" style=\"background-color:white\">\r\n          <div class=\"container\">\r\n            <router-outlet></router-outlet>\r\n            <div>\r\n<button class=\"button\" (click)=\"GetNombre()\">traer Api</button>\r\n            </div>\r\n          </div>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>\r\n<div class=\"page-prefooter\">\r\n  <div class=\"container\">\r\n    <div class=\"row\">\r\n      <div class=\"col-md-3 col-sm-6 col-xs-12 footer-block\">\r\n        <h2>Acerca de</h2>\r\n        <p>\r\n          Grupo YMCA\r\n        </p>\r\n      </div>\r\n      <div class=\"col-md-3 col-sm-6 col-xs12 footer-block\">\r\n        <h2>Suscríbete</h2>\r\n        <div class=\"subscribe-form\">\r\n          <form action=\"javascript:;\">\r\n            <div class=\"input-group\">\r\n              <input type=\"text\" placeholder=\"mail@email.com\" class=\"form-control\">\r\n              <span class=\"input-group-btn\">\r\n                <button class=\"btn\" type=\"submit\">Submit</button>\r\n              </span>\r\n            </div>\r\n          </form>\r\n        </div>\r\n      </div>\r\n      <div class=\"col-md-3 col-sm-6 col-xs-12 footer-block\">\r\n        <h2>Siguenos</h2>\r\n        <ul class=\"social-icons\">\r\n          <li>\r\n            <a href=\"javascript:;\" data-original-title=\"facebook\"><span class=\"glyphicon glyphicon-thumbs-up fa-inverse\"></span> </a>\r\n          </li>\r\n          <li>\r\n            <a href=\"javascript:;\" data-original-title=\"youtube\" class=\"glyphicon glyphicon-hd-video fa-inverse\"></a>\r\n          </li>\r\n        </ul>\r\n      </div>\r\n      <div class=\"col-md-3 col-sm-6 col-xs-12 footer-block\">\r\n        <h2>Contacto</h2>\r\n        <address class=\"margin-bottom-40\">\r\n          Telefono: 5255-47-05<br>\r\n          Email: <a href=\"mailto:enriquegonsen@uniymca.edu.mx\">enriquegonsen@uniymca.edu.mx</a>\r\n        </address>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>\r\n<div class=\"page-footer\">\r\n  <div class=\"container\">\r\n    2015 &copy; YMCA. Todos los derechos reservados.\r\n  </div>\r\n</div>\r\n<div class=\"scroll-to-top\">\r\n  <i class=\"icon-arrow-up\"></i>\r\n</div>"
 
 /***/ }),
 
@@ -328,6 +328,7 @@ module.exports = "<div class=\"page-header\" style=\"margin-top:0px\">\r\n  <div
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("./node_modules/@angular/core/@angular/core.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_http__ = __webpack_require__("./node_modules/@angular/http/@angular/http.es5.js");
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AppComponent; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -335,11 +336,23 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
 
 var AppComponent = (function () {
-    function AppComponent() {
+    function AppComponent(http) {
+        this.http = http;
         this.title = 'app';
     }
+    AppComponent.prototype.GetNombre = function () {
+        window.console.log("Estoy Adentro");
+        this.Nombre =
+            this.http
+                .get('api/value')
+                .subscribe(function (res) { return res.json(); });
+    };
     return AppComponent;
 }());
 AppComponent = __decorate([
@@ -347,9 +360,11 @@ AppComponent = __decorate([
         selector: 'app-root',
         template: __webpack_require__("./src/app/app.component.html"),
         styles: [__webpack_require__("./src/app/app.component.css")]
-    })
+    }),
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_http__["b" /* Http */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_http__["b" /* Http */]) === "function" && _a || Object])
 ], AppComponent);
 
+var _a;
 //# sourceMappingURL=app.component.js.map
 
 /***/ }),
@@ -362,15 +377,16 @@ AppComponent = __decorate([
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__("./node_modules/@angular/core/@angular/core.es5.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_router__ = __webpack_require__("./node_modules/@angular/router/@angular/router.es5.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_common__ = __webpack_require__("./node_modules/@angular/common/@angular/common.es5.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__angular_forms__ = __webpack_require__("./node_modules/@angular/forms/@angular/forms.es5.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_primeng_primeng__ = __webpack_require__("./node_modules/primeng/primeng.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_primeng_primeng___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_primeng_primeng__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_ngx_bootstrap_dropdown__ = __webpack_require__("./node_modules/ngx-bootstrap/dropdown/index.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__angular_platform_browser_animations__ = __webpack_require__("./node_modules/@angular/platform-browser/@angular/platform-browser/animations.es5.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__app_component__ = __webpack_require__("./src/app/app.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__component_menu_menu_component__ = __webpack_require__("./src/app/component.menu/menu.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__component_home_home_component__ = __webpack_require__("./src/app/component.home/home.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__Docente_AltaDocente_component__ = __webpack_require__("./src/app/Docente/AltaDocente.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__angular_http__ = __webpack_require__("./node_modules/@angular/http/@angular/http.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__angular_forms__ = __webpack_require__("./node_modules/@angular/forms/@angular/forms.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_primeng_primeng__ = __webpack_require__("./node_modules/primeng/primeng.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_primeng_primeng___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_primeng_primeng__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_ngx_bootstrap_dropdown__ = __webpack_require__("./node_modules/ngx-bootstrap/dropdown/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__angular_platform_browser_animations__ = __webpack_require__("./node_modules/@angular/platform-browser/@angular/platform-browser/animations.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__app_component__ = __webpack_require__("./src/app/app.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__component_menu_menu_component__ = __webpack_require__("./src/app/component.menu/menu.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__component_home_home_component__ = __webpack_require__("./src/app/component.home/home.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__Docente_AltaDocente_component__ = __webpack_require__("./src/app/Docente/AltaDocente.component.ts");
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AppModule; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -378,6 +394,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
 
 
 
@@ -398,40 +415,41 @@ var AppModule = (function () {
 AppModule = __decorate([
     __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__angular_core__["NgModule"])({
         declarations: [
-            __WEBPACK_IMPORTED_MODULE_8__app_component__["a" /* AppComponent */],
-            __WEBPACK_IMPORTED_MODULE_9__component_menu_menu_component__["a" /* MenuComponent */],
-            __WEBPACK_IMPORTED_MODULE_10__component_home_home_component__["a" /* HomeComponent */],
-            __WEBPACK_IMPORTED_MODULE_11__Docente_AltaDocente_component__["a" /* AltaDocenteComponent */]
+            __WEBPACK_IMPORTED_MODULE_9__app_component__["a" /* AppComponent */],
+            __WEBPACK_IMPORTED_MODULE_10__component_menu_menu_component__["a" /* MenuComponent */],
+            __WEBPACK_IMPORTED_MODULE_11__component_home_home_component__["a" /* HomeComponent */],
+            __WEBPACK_IMPORTED_MODULE_12__Docente_AltaDocente_component__["a" /* AltaDocenteComponent */]
         ],
         imports: [
             __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__["BrowserModule"],
             __WEBPACK_IMPORTED_MODULE_3__angular_common__["CommonModule"],
-            __WEBPACK_IMPORTED_MODULE_4__angular_forms__["FormsModule"],
-            __WEBPACK_IMPORTED_MODULE_4__angular_forms__["ReactiveFormsModule"],
-            __WEBPACK_IMPORTED_MODULE_5_primeng_primeng__["ButtonModule"],
-            __WEBPACK_IMPORTED_MODULE_5_primeng_primeng__["GrowlModule"],
-            __WEBPACK_IMPORTED_MODULE_5_primeng_primeng__["DataTableModule"],
-            __WEBPACK_IMPORTED_MODULE_5_primeng_primeng__["SharedModule"],
-            __WEBPACK_IMPORTED_MODULE_5_primeng_primeng__["DropdownModule"],
-            __WEBPACK_IMPORTED_MODULE_5_primeng_primeng__["StepsModule"],
-            __WEBPACK_IMPORTED_MODULE_5_primeng_primeng__["TabViewModule"],
-            __WEBPACK_IMPORTED_MODULE_5_primeng_primeng__["PanelModule"],
-            __WEBPACK_IMPORTED_MODULE_5_primeng_primeng__["ChipsModule"],
-            __WEBPACK_IMPORTED_MODULE_5_primeng_primeng__["CalendarModule"],
-            __WEBPACK_IMPORTED_MODULE_5_primeng_primeng__["CheckboxModule"],
-            __WEBPACK_IMPORTED_MODULE_5_primeng_primeng__["FileUploadModule"],
-            __WEBPACK_IMPORTED_MODULE_7__angular_platform_browser_animations__["a" /* BrowserAnimationsModule */],
+            __WEBPACK_IMPORTED_MODULE_5__angular_forms__["FormsModule"],
+            __WEBPACK_IMPORTED_MODULE_5__angular_forms__["ReactiveFormsModule"],
+            __WEBPACK_IMPORTED_MODULE_6_primeng_primeng__["ButtonModule"],
+            __WEBPACK_IMPORTED_MODULE_6_primeng_primeng__["GrowlModule"],
+            __WEBPACK_IMPORTED_MODULE_6_primeng_primeng__["DataTableModule"],
+            __WEBPACK_IMPORTED_MODULE_6_primeng_primeng__["SharedModule"],
+            __WEBPACK_IMPORTED_MODULE_6_primeng_primeng__["DropdownModule"],
+            __WEBPACK_IMPORTED_MODULE_6_primeng_primeng__["StepsModule"],
+            __WEBPACK_IMPORTED_MODULE_6_primeng_primeng__["TabViewModule"],
+            __WEBPACK_IMPORTED_MODULE_6_primeng_primeng__["PanelModule"],
+            __WEBPACK_IMPORTED_MODULE_6_primeng_primeng__["ChipsModule"],
+            __WEBPACK_IMPORTED_MODULE_6_primeng_primeng__["CalendarModule"],
+            __WEBPACK_IMPORTED_MODULE_6_primeng_primeng__["CheckboxModule"],
+            __WEBPACK_IMPORTED_MODULE_6_primeng_primeng__["FileUploadModule"],
+            __WEBPACK_IMPORTED_MODULE_4__angular_http__["a" /* HttpModule */],
+            __WEBPACK_IMPORTED_MODULE_8__angular_platform_browser_animations__["a" /* BrowserAnimationsModule */],
             __WEBPACK_IMPORTED_MODULE_2__angular_router__["RouterModule"].forRoot([
                 { path: '', redirectTo: 'home', pathMatch: 'full' },
-                { path: 'home', component: __WEBPACK_IMPORTED_MODULE_10__component_home_home_component__["a" /* HomeComponent */] },
-                { path: 'AltaDocente', component: __WEBPACK_IMPORTED_MODULE_11__Docente_AltaDocente_component__["a" /* AltaDocenteComponent */] },
+                { path: 'home', component: __WEBPACK_IMPORTED_MODULE_11__component_home_home_component__["a" /* HomeComponent */] },
+                { path: 'AltaDocente', component: __WEBPACK_IMPORTED_MODULE_12__Docente_AltaDocente_component__["a" /* AltaDocenteComponent */] },
                 { path: '**', redirectTo: 'home' }
             ]),
-            __WEBPACK_IMPORTED_MODULE_6_ngx_bootstrap_dropdown__["a" /* BsDropdownModule */].forRoot(),
+            __WEBPACK_IMPORTED_MODULE_7_ngx_bootstrap_dropdown__["a" /* BsDropdownModule */].forRoot(),
         ],
         exports: [],
         providers: [],
-        bootstrap: [__WEBPACK_IMPORTED_MODULE_8__app_component__["a" /* AppComponent */]]
+        bootstrap: [__WEBPACK_IMPORTED_MODULE_9__app_component__["a" /* AppComponent */]]
     })
 ], AppModule);
 

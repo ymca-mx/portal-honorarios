@@ -2,6 +2,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { Http,HttpModule } from '@angular/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {
     ButtonModule,
@@ -44,6 +45,7 @@ import { AltaDocenteComponent } from './Docente/AltaDocente.component';
       CalendarModule,
       CheckboxModule,
       FileUploadModule,
+      HttpModule,
       BrowserAnimationsModule,
       RouterModule.forRoot([
           { path: '', redirectTo: 'home', pathMatch: 'full' },
