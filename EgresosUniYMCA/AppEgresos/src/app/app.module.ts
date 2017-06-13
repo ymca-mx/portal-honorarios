@@ -8,7 +8,7 @@ import { AppRouting } from 'app/app.routing';
 import {
     ButtonModule,
     GrowlModule,
-    DataTableModule,
+    DataTableModule, 
     SharedModule,
     DropdownModule,
     StepsModule, TabViewModule, PanelModule, ChipsModule, CalendarModule, CheckboxModule, FileUploadModule
