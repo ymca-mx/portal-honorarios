@@ -1,5 +1,4 @@
 ﻿import { Component } from '@angular/core';
-import { Http, Response } from '@angular/http';
 
 @Component({
   selector: 'app-root',
@@ -8,14 +7,4 @@ import { Http, Response } from '@angular/http';
 })
 export class AppComponent {
     title = 'app';
-    Nombre;
-    constructor(private http: Http) { }
-
-    GetNombre() {
-        window.console.log("Estoy Adentro");
-        this.Nombre =
-            this.http
-            .get('api/values')
-            .subscribe(res=> res.json());
-    }
 }

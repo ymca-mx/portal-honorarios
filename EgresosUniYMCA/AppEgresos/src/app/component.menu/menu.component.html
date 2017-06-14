@@ -1,41 +1,31 @@
-﻿    <div class='navbar hor-menu navbar-inverse' >
-      <div class="container">
-        <div class="container-fluid">
-          <div class='navbar-header'>
-            <button type='button' class='navbar-toggle' data-toggle='collapse' data-target='#myNavbar'>
-              <span class='sr-only'>Toggle navigation</span>
-              <span class='icon-bar'></span>
-              <span class='icon-bar'></span>
-              <span class='icon-bar'></span>
-            </button>
-            <a class='navbar-brand' [routerLink]="['/home']">Home</a>
-          </div>
-          <div class="collapse navbar-collapse" id="myNavbar">
-            <ul class='nav navbar-nav'>
-              <li dropdown [routerLinkActive]="['link-active']">
-                <a href dropdownToggle (click)="false">
-                  Docente <span class="glyphicon glyphicon-user"></span>
+﻿<div class='navbar hor-menu navbar-inverse'>
+  <div class="container">
+    <div class="container-fluid">
+      <div class='navbar-header'>
+        <button type='button' class='navbar-toggle' data-toggle='collapse' data-target='#myNavbar'>
+          <span class='sr-only'>Toggle navigation</span>
+          <span class='icon-bar'></span>
+          <span class='icon-bar'></span>
+          <span class='icon-bar'></span>
+        </button>
+        <a class='navbar-brand' [routerLink]="['/home']">Home</a>
+      </div>
+      <div class="collapse navbar-collapse" id="myNavbar">
+        <ul class="nav navbar-nav" data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200">
+          <li dropdown *ngFor="let itemmenu of listMenu; let i = index;">
+            <a dropdownToggle (click)="false">
+              {{itemmenu.titulo}} <span></span>
+            </a>
+            <ul *dropdownMenu class="dropdown-menu">
+              <li role="menuitem" *ngFor="let subitem of  itemmenu.subMenus; let i2 = index;" >
+                <a class="dropdown-item" href={{subitem.direccion}}>
+                  <span class='glyphicon glyphicon-list'></span> {{subitem.descripcion}}
                 </a>
-                <ul *dropdownMenu class="dropdown-menu">
-                  <li role="menuitem">
-                    <a class="dropdown-item" [routerLink]="['/AltaDocente']"><span class='glyphicon glyphicon-list'></span> Alta Docente</a>
-                  </li>
-                </ul>
-                <!--<div class="btn-group" dropdown>
-              <button dropdownToggle type="button" class="btn btn-primary dropdown-toggle">
-                Docente <span class="glyphicon glyphicon-user"></span>
-              </button>
-              <ul *dropdownMenu class="dropdown-menu" role="menu">
-                <li role="menuitem">
-                  <a class="dropdown-item" [routerLink]="['/AltaDocente']"><span class='glyphicon glyphicon-list'></span> Alta Docente</a>
-                </li>
-              </ul>
-            </div>-->
               </li>
             </ul>
-          </div>
-        </div>
+          </li>
+        </ul>
       </div>
     </div>
-
-
+  </div>
+</div>
