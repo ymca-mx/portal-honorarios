@@ -3,7 +3,7 @@ import { HttpModule } from '@angular/http';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { AppRouting } from 'app/app.routing';
 import {
     ButtonModule,
@@ -11,7 +11,7 @@ import {
     DataTableModule,
     SharedModule,
     DropdownModule,
-    StepsModule, TabViewModule, PanelModule, ChipsModule, CalendarModule, CheckboxModule, FileUploadModule
+    StepsModule, TabViewModule, PanelModule, ChipsModule, CalendarModule, CheckboxModule, FileUploadModule, DialogModule
 } from 'primeng/primeng';
 
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
@@ -21,13 +21,15 @@ import { AppComponent } from './app.component';
 import { MenuComponent } from './component.menu/menu.component';
 import { HomeComponent } from './component.home/home.component';
 import { AltaDocenteComponent } from './Docente/AltaDocente.component';
+import { FileComponent } from './component.file/file.component';
 
 @NgModule({
   declarations: [
       AppComponent,
       MenuComponent,
       HomeComponent,
-      AltaDocenteComponent
+      AltaDocenteComponent,
+      FileComponent
   ],
   imports: [
       BrowserModule,
@@ -50,6 +52,7 @@ import { AltaDocenteComponent } from './Docente/AltaDocente.component';
       BrowserAnimationsModule,
       AppRouting,
       BsDropdownModule.forRoot(),
+      DialogModule
   ],
   exports: [
   ],

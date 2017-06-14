@@ -1,0 +1,8 @@
+﻿<div class="ui-grid-row">
+  <div class="ui-md">
+    <label class="ui-button ui-widget ui-state-default ui-corner-all "><span class="ui-button-icon-left ui-c fa fa-fw fa-folder-open"></span><span class="ui-button-text ui-c"><input type="file" style="display: none;" max="1" (change)="onUpload($event)"></span></label>
+  </div>
+  <div class="ui-md" *ngIf="visible">
+    <span style="margin-right:10px"> {{documento}}</span><span class="fa-close ui-menuitem-icon fa fa-fw" (click)="deleteFile()"></span>
+  </div>
+</div>
