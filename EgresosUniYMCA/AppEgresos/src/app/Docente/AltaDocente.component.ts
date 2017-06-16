@@ -2,7 +2,7 @@
 import { Component, Injectable, OnInit, ViewEncapsulation } from '@angular/core';
 import { Http, Headers, Response, RequestOptions } from '@angular/http';
 import { Validators, FormControl, FormGroup, FormBuilder } from '@angular/forms';
-
+import { ConfirmationService } from 'primeng/primeng';
 
 import {
     MenuModule,
@@ -48,7 +48,8 @@ import {
         }
 
     `],
-    encapsulation: ViewEncapsulation.None
+    encapsulation: ViewEncapsulation.None,
+    providers: [ConfirmationService]
 })
 
 export class AltaDocenteComponent implements OnInit {
@@ -66,7 +67,7 @@ export class AltaDocenteComponent implements OnInit {
     public estadoCivil;
     public estado;
     public municipio;
-    public ofertasTipo: catalogo;
+    public ofertasTipo: Catalogo[];
     nacional: SelectItem[];
     //valores inicales catalogos//
     slcNacionalidad: string = '1';
@@ -74,21 +75,24 @@ export class AltaDocenteComponent implements OnInit {
     sclEstado: string = '9';
     sclEstadoF: string = '9';
     //formulario//
-    validar: boolean = false;
+    validarCoor: boolean = false;
+    validarRH: boolean = false;
     checked: boolean = false;
     es: any;
     msgs: Message[] = [];
     tab1form: FormGroup;
     tab2form: FormGroup;
     tab3form: FormGroup;
-    submitted: boolean;
     description: string;
+    docenteId: string;
+    d: string;
     ///estudios docente//
     displayDialog: boolean;
     public Estudios: GradoAcademico[] = [];
+    public doc: Documento[] = [{ visible: false, nombre: '', directorio: '' }, { visible: false, nombre: '', directorio: '' }];
+    crudestudio: number;
 
-
-    constructor(private http: Http, private fb: FormBuilder) {
+    constructor(private http: Http, private fb: FormBuilder, private confirmationService: ConfirmationService) {
 
     }
 
@@ -133,9 +137,15 @@ export class AltaDocenteComponent implements OnInit {
         }
         //formulario//
         this.tab1form = this.fb.group({
-            'nombre': new FormControl('', Validators.compose([Validators.required, Validators.minLength(3)])),
-            'paterno': new FormControl('', Validators.compose([Validators.required, Validators.minLength(3)])),
-            'materno': new FormControl('', Validators.compose([Validators.required, Validators.minLength(3)])),
+            xcoordinador: this.fb.group({
+                'nombre': new FormControl('', Validators.compose([Validators.required, Validators.minLength(3)])),
+                'paterno': new FormControl('', Validators.compose([Validators.required, Validators.minLength(3)])),
+                'materno': new FormControl('', Validators.compose([Validators.required, Validators.minLength(3)])),
+                'celular': new FormControl('', Validators.compose([Validators.required, Validators.minLength(10), Validators.maxLength(10)])),
+                'telcasa': new FormControl('', Validators.compose([Validators.required, Validators.minLength(8), Validators.maxLength(10)])),
+                'teloficina': new FormControl('', Validators.compose([Validators.minLength(8),Validators.maxLength(10)])),
+                'email': new FormControl('', this.emailValidator)
+            }),
             'nacimiento': new FormControl('', Validators.required),
             'nacionalidad': new FormControl('', Validators.required),
             'lugarnacimiento': new FormControl('', Validators.required),
@@ -143,10 +153,6 @@ export class AltaDocenteComponent implements OnInit {
             'nomigracion': new FormControl('', Validators.compose([Validators.required, Validators.minLength(11), Validators.maxLength(11)])),
             'genero': new FormControl('', Validators.required),
             'estadocivil': new FormControl('', Validators.required),
-            'celular': new FormControl('', Validators.compose([Validators.required, Validators.minLength(3)])),
-            'telcasa': new FormControl('', Validators.compose([Validators.required, Validators.minLength(3)])),
-            'teloficina': new FormControl('', Validators.compose([Validators.required, Validators.minLength(3)])),
-            'email': new FormControl('', this.emailValidator),
             'emailuni': new FormControl('', this.emailValidator)
         });
 
@@ -181,14 +187,7 @@ export class AltaDocenteComponent implements OnInit {
 
         this.CargarCatalogos();
     }
-
-    onSubmit(value: string) {
-        this.submitted = true;
-        this.msgs = [];
-        this.msgs.push({ severity: 'info', summary: 'Success', detail: 'Form Submitted' });
-    }
-
-    get diagnostic() { return JSON.stringify(this.tab1form.value); }
+    
 
     CargarCatalogos() {
 
@@ -198,7 +197,7 @@ export class AltaDocenteComponent implements OnInit {
         this.nacional.push({ label: 'Mexicana ', value: '1' });
         this.nacional.push({ label: 'Extranjera ', value: '2' });
 
-        this.http.get('/api/Catalogos/altadocente').subscribe(result => {
+        this.http.get('/api/Catalogos/AltaDocenteCatalogo').subscribe(result => {
             this.catalogos = result.json();
             //Lugar Nacimiento
             this.nacimientoLugar = this.catalogos.entidades;
@@ -231,7 +230,7 @@ export class AltaDocenteComponent implements OnInit {
     ChangeEstado() {
 
         if (this.sclEstado != "") {
-            this.http.get('/api/catalogos/municipio/' + this.sclEstado).subscribe(result => {
+            this.http.get('/api/catalogos/Municipio/' + this.sclEstado).subscribe(result => {
                 this.municipio = result.json();
 
             });
@@ -241,30 +240,31 @@ export class AltaDocenteComponent implements OnInit {
 
     }
 
-    Siguente() {
+    Continuar() {
 
         if (this.activeIndex < 3) {
-            //if (this.activeIndex == 0)
-            //{
-            //    if (!this.tab1form.valid)
-            //    {
-            //        this.validar = true;
-            //        return false;
-            //    }
-            //} else if (this.activeIndex == 1) {
-            //    if (!this.tab2form.valid) {
-            //        this.validar = true;
-            //        return false;
-            //    }
-            //}
+            if (this.activeIndex == 0) {
+                if (this.tab1form.controls['xcoordinador'].valid ) {
+                    this.validarCoor = false; 
+                    this.guardaDocente();
+                } else {
+                    this.validarCoor = true;
+                    return false;
+                }
+            } else if (this.activeIndex == 1) {
+                //if (!this.tab2form.valid) {
+                //    this.validar = true;
+                //    return false;
+                //}else{}
+            }
 
-            this.validar = false;
-            this.activeIndex = this.activeIndex + 1;
-            this.activarTabs();
+            
+            //this.activeIndex = this.activeIndex + 1;
+            //this.activarTabs();
         }// if (this.activeIndex < 4)
     }
 
-    Atras() {
+    Regresar() {
         if (this.activeIndex > 0) {
             this.activeIndex = this.activeIndex - 1;
             this.activarTabs();
@@ -272,36 +272,87 @@ export class AltaDocenteComponent implements OnInit {
 
     }
 
-    showDialog() {
+    guardaDocente()
+    {
+        if (this.confirmacion("Guardar Cambios", "¿Está seguro que desea guardar cambios?")) {
+            //build header options
+            let headers = new Headers({ 'Content-Type': 'application/json;charset=utf-8' });
+            let options = new RequestOptions({ headers: headers });
+            //build POST body
+            let body = JSON.stringify(this.tab1form.value);
+            this.http.post('/api/AltaDocente/AltaDocente', body, options).subscribe(result => {
+                this.docenteId = result.json();
+            });
+        } else { return false; }
+         
+       
+    }
+
+    addEstudio() {
+        //limpiar formulario estudios//
+        this.tab2form.get('estudios').reset();
+        this.doc[0].visible = false;
+        this.doc[1].visible = false;
+        //--------------------------//
+        this.crudestudio = 1;
         this.displayDialog = true;
     }
 
-    AddEstudio() {
-
+    crudEstudio() {
         let estudios = [...this.Estudios];
+        if (this.crudestudio == 1) {
+            let grado = this.ofertasTipo.filter(a => {
+                return a.value == this.tab2form.get('estudios').get("grado").value
+            });
 
-        let azul = this.ofertasTipo;
+            let estudioId = estudios.length + 1;
+            estudios.push({
+                estudioId: estudioId,
+                institucion: this.tab2form.get('estudios').get("institucion").value,
+                grado: grado.length > 0 ? grado[0].label : "",
+                carrera: this.tab2form.get('estudios').get("carrera").value,
+                cedula: this.tab2form.get('estudios').get("cedula").value == 'Si' ? 'Si' : 'NO',
+                ceduladoc: this.tab2form.get('estudios').get("ceduladoc").value,
+                titulo: this.tab2form.get('estudios').get("titulo").value == 'Si' ? 'Si' : 'NO',
+                titulodoc: this.tab2form.get('estudios').get("titulodoc").value
+            });
 
-        estudios.push({
-            institucion: this.tab2form.get('estudios').get("institucion").value,
-            grado: this.tab2form.get('estudios').get("grado").value,
-            carrera: this.tab2form.get('estudios').get("carrera").value,
-            cedula: this.tab2form.get('estudios').get("cedula").value == 'true' ? 'Si' : 'NO',
-            ceduladoc: this.tab2form.get('estudios').get("ceduladoc").value,
-            titulo: this.tab2form.get('estudios').get("titulo").value == 'true' ? 'Si' : 'NO',
-            titulodoc: this.tab2form.get('estudios').get("titulodoc").value
-        });
+            this.Estudios = estudios;
+            this.displayDialog = false;
+        } else if (this.crudestudio == 2) {
 
-        this.Estudios = estudios;
-        this.displayDialog = false;
+        } else if (this.crudestudio == 3) {
+
+        }
+
+    }
+
+    editarEstudio(estudio: GradoAcademico) {
+        //limpiar formulario estudios//
         this.tab2form.get('estudios').reset();
+        this.doc[0].visible = false;
+        this.doc[1].visible = false;
+        //--------------------------//
+        let grado = this.ofertasTipo.filter(a => {
+            return a.label == estudio.grado
+        });
+        this.tab2form.get('estudios').get("institucion").setValue(estudio.institucion);
+        this.tab2form.get('estudios').get("grado").setValue(grado[0].value);
+        this.tab2form.get('estudios').get("carrera").setValue(estudio.carrera);
+        this.tab2form.get('estudios').get("cedula").setValue(estudio.cedula == 'Si' ? 'Si' : '');
+        this.tab2form.get('estudios').get("ceduladoc").setValue(estudio.ceduladoc);
+        this.tab2form.get('estudios').get("titulo").setValue(estudio.titulo == 'Si' ? 'Si' : '');
+        this.tab2form.get('estudios').get("titulodoc").setValue(estudio.titulodoc);
+        if (estudio.ceduladoc != null) {
+            this.doc[0] = { nombre: estudio.ceduladoc, visible: true, directorio: '' };
+        }
+        if (estudio.titulodoc != null) {
+            this.doc[1] = { nombre: estudio.titulodoc, visible: true, directorio: '' };
+        }
+        this.crudestudio = 2;
+        this.displayDialog = true;
     }
 
-    editarEstudio(estudio : GradoAcademico)
-    {
-
-    }
-    
     activarTabs() {
         if (this.activeIndex == 0) {
             this.tab1 = true;
@@ -321,7 +372,6 @@ export class AltaDocenteComponent implements OnInit {
 
     //valida correo electronico//
     emailValidator(control) {
-        // RFC 2822 compliant regex
         if (control.value.match(/[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/)) {
             return null;
         } else {
@@ -329,31 +379,52 @@ export class AltaDocenteComponent implements OnInit {
         }
     }
 
+    confirmacion(header, message) {
+        this.confirmationService.confirm({
+            message: message,
+            header: header,
+            icon: 'fa fa-question-circle',
+            accept: () => {
+                return true;
+            },
+            reject: () => {
+                return false;
+            }
+        });
+    }
+
     //cargar archivo//
-    onUpload(file: any,formulario : string, componente: string) {
+    onUpload(file: any, formulario: string, componente: string, n: number) {
         if (file != undefined) {
             this.tab2form.get(formulario).get(componente).setValue(file.nombre);
+            this.doc[n] = { nombre: file.nombre, visible: true, directorio: '' };
         } else {
             this.tab2form.get(formulario).get(componente).setValue("");
+            this.doc[n] = { nombre: file.nombre, visible: false, directorio: '' };
         }
     }
 
-
+    
 }
 
 
 export interface GradoAcademico {
+    estudioId;
     institucion;
     grado;
     carrera;
     cedula;
-    ceduladoc;
+    ceduladoc?;
     titulo;
-    titulodoc;
+    titulodoc?;
 }
-
-export interface catalogo {
+export interface Catalogo {
     value;
     label;
+};
+export interface Documento {
+    visible;
+    nombre;
+    directorio;
 };
 

@@ -15,5 +15,7 @@ namespace EgresosUniYMCA.Models
         public int? PeriodoId { get; set; }
         public int? UsuarioId { get; set; }
         public int? EstatusId { get; set; }
+
+        public virtual DocenteDetalle DocenteDetalle { get; set; }
     }
 }

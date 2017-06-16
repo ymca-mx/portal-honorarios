@@ -6,10 +6,9 @@ namespace EgresosUniYMCA.Models
     public partial class DocenteDetalle
     {
         public int DocenteId { get; set; }
-        public DateTime? FechaNaciminto { get; set; }
+        public DateTime? FechaNacimiento { get; set; }
         public string Curp { get; set; }
-        public string Rfc { get; set; }
-        public string Nss { get; set; }
+        public string NumeroMigracion { get; set; }
         public int? GeneroId { get; set; }
         public int? EstadoCivilId { get; set; }
         public int? PaisId { get; set; }
@@ -25,5 +24,18 @@ namespace EgresosUniYMCA.Models
         public string TelefonoOficina { get; set; }
         public string Celular { get; set; }
         public string Email { get; set; }
+        public string EmailUniversidad { get; set; }
+        public string Rfc { get; set; }
+        public string RazonSocial { get; set; }
+        public string NoCuenta { get; set; }
+        public string ClabeInterbancaria { get; set; }
+
+        public virtual Docente Docente { get; set; }
+        public virtual EntidadFederativa EntidadFederativa { get; set; }
+        public virtual EntidadFederativa EntidadNacimiento { get; set; }
+        public virtual EstadoCivil EstadoCivil { get; set; }
+        public virtual Genero Genero { get; set; }
+        public virtual Pais Pais { get; set; }
+        public virtual Municipio Municipio { get; set; }
     }
 }

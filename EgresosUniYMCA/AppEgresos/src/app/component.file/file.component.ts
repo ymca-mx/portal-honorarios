@@ -1,4 +1,4 @@
-﻿import { Component, Injectable, OnInit, Output, EventEmitter} from '@angular/core';
+﻿import { Component, Injectable, OnInit, Input,Output, EventEmitter} from '@angular/core';
 
 @Component({
     selector: 'file-app',
@@ -6,8 +6,8 @@
 })
 
 export class FileComponent  {
-    visible: boolean = false;
-    documento: string;
+    @Input() visible: boolean = false;
+    @Input() documento: string;
     @Output() Documento = new EventEmitter();
 
     onUpload(fileInput: any) {
@@ -30,6 +30,7 @@ export class FileComponent  {
         }
         this.Documento.emit({ nombre: this.documento });
     }
+
     deleteFile() {
         this.documento = "";
         this.visible = false;

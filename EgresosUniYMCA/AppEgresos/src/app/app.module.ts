@@ -11,7 +11,7 @@ import {
     DataTableModule, 
     SharedModule,
     DropdownModule,
-    StepsModule, TabViewModule, PanelModule, ChipsModule, CalendarModule, CheckboxModule, FileUploadModule, DialogModule
+    StepsModule, TabViewModule, PanelModule, ChipsModule, CalendarModule, CheckboxModule, FileUploadModule, DialogModule, ConfirmDialogModule
 } from 'primeng/primeng';
 
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
@@ -52,7 +52,8 @@ import { FileComponent } from './component.file/file.component';
       BrowserAnimationsModule,
       AppRouting,
       BsDropdownModule.forRoot(),
-      DialogModule
+      DialogModule,
+      ConfirmDialogModule
   ],
   exports: [
   ],

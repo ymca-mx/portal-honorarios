@@ -12,6 +12,8 @@ namespace EgresosUniYMCA.Models
             AlumnoDetalleEntidadNacimiento = new HashSet<AlumnoDetalle>();
             AlumnoDetalleAlumno = new HashSet<AlumnoDetalleAlumno>();
             AlumnoDetalleCoordinador = new HashSet<AlumnoDetalleCoordinador>();
+            DocenteDetalleEntidadFederativa = new HashSet<DocenteDetalle>();
+            DocenteDetalleEntidadNacimiento = new HashSet<DocenteDetalle>();
             Municipio = new HashSet<Municipio>();
             ProspectoDetalleEntidadFederativa = new HashSet<ProspectoDetalle>();
             ProspectoDetallePrepaEntidad = new HashSet<ProspectoDetalle>();
@@ -28,6 +30,8 @@ namespace EgresosUniYMCA.Models
         public virtual ICollection<AlumnoDetalle> AlumnoDetalleEntidadNacimiento { get; set; }
         public virtual ICollection<AlumnoDetalleAlumno> AlumnoDetalleAlumno { get; set; }
         public virtual ICollection<AlumnoDetalleCoordinador> AlumnoDetalleCoordinador { get; set; }
+        public virtual ICollection<DocenteDetalle> DocenteDetalleEntidadFederativa { get; set; }
+        public virtual ICollection<DocenteDetalle> DocenteDetalleEntidadNacimiento { get; set; }
         public virtual ICollection<Municipio> Municipio { get; set; }
         public virtual ICollection<ProspectoDetalle> ProspectoDetalleEntidadFederativa { get; set; }
         public virtual ICollection<ProspectoDetalle> ProspectoDetallePrepaEntidad { get; set; }
