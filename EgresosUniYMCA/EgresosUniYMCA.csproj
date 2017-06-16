@@ -14,6 +14,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="AppEgresos\src\app\img\" />
+    <Folder Include="AppEgresos\src\Plugins\" />
     <Folder Include="wwwroot\" />
   </ItemGroup>
   <ItemGroup>
