@@ -214,7 +214,6 @@ namespace EgresosUniYMCA.Models
         // Unable to generate entity type for table 'dbo.AlumnoMatricula'. Please see the warning messages.
         // Unable to generate entity type for table 'dbo.Tabla2'. Please see the warning messages.
         // Unable to generate entity type for table 'dbo.tmpReferencias'. Please see the warning messages.
-        // Unable to generate entity type for table 'Egresos.DocenteDatosFiscales'. Please see the warning messages.
         // Unable to generate entity type for table 'dbo.IdiomasInscrito'. Please see the warning messages.
         // Unable to generate entity type for table 'dbo.AlumnosLE20162'. Please see the warning messages.
         // Unable to generate entity type for table 'Egresos.Grupo'. Please see the warning messages.
@@ -243,13 +242,7 @@ namespace EgresosUniYMCA.Models
         // Unable to generate entity type for table 'dbo.tmpPago'. Please see the warning messages.
         // Unable to generate entity type for table 'dbo.tmpAlumnoDescuento'. Please see the warning messages.
 
-        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        //{
-        //    #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-        //    optionsBuilder.UseSqlServer(@"Server=108.163.172.122;Database=Universidad_w;Persist Security Info=True;User ID=usrProgramador;Password=Programador@@23+;MultipleActiveResultSets=True;Application Name=EntityFramework");
-        //}
-
-        public UniversidadContext(DbContextOptions<UniversidadContext> options): base(options)
+        public UniversidadContext(DbContextOptions<UniversidadContext> options) : base(options)
         { }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -2039,8 +2032,6 @@ namespace EgresosUniYMCA.Models
             {
                 entity.ToTable("Docente", "Egresos");
 
-                entity.Property(e => e.DocenteId).ValueGeneratedNever();
-
                 entity.Property(e => e.FechaAlta).HasColumnType("date");
 
                 entity.Property(e => e.HoraAlta).HasColumnType("time(0)");
@@ -2093,6 +2084,8 @@ namespace EgresosUniYMCA.Models
 
                 entity.Property(e => e.Celular).HasColumnType("varchar(30)");
 
+                entity.Property(e => e.ClabeInterbancaria).HasColumnType("varchar(50)");
+
                 entity.Property(e => e.Colonia).HasColumnType("varchar(100)");
 
                 entity.Property(e => e.Cp)
@@ -2105,15 +2098,19 @@ namespace EgresosUniYMCA.Models
 
                 entity.Property(e => e.Email).HasColumnType("varchar(100)");
 
-                entity.Property(e => e.FechaNaciminto).HasColumnType("date");
+                entity.Property(e => e.EmailUniversidad).HasColumnType("varchar(50)");
+
+                entity.Property(e => e.FechaNacimiento).HasColumnType("date");
+
+                entity.Property(e => e.NoCuenta).HasColumnType("varchar(50)");
 
                 entity.Property(e => e.NoExterior).HasColumnType("varchar(30)");
 
                 entity.Property(e => e.NoInterior).HasColumnType("varchar(30)");
 
-                entity.Property(e => e.Nss)
-                    .HasColumnName("NSS")
-                    .HasColumnType("varchar(30)");
+                entity.Property(e => e.NumeroMigracion).HasColumnType("varchar(30)");
+
+                entity.Property(e => e.RazonSocial).HasColumnType("varchar(50)");
 
                 entity.Property(e => e.Rfc)
                     .HasColumnName("RFC")
@@ -2122,6 +2119,42 @@ namespace EgresosUniYMCA.Models
                 entity.Property(e => e.TelefonoCasa).HasColumnType("varchar(30)");
 
                 entity.Property(e => e.TelefonoOficina).HasColumnType("varchar(30)");
+
+                entity.HasOne(d => d.Docente)
+                    .WithOne(p => p.DocenteDetalle)
+                    .HasForeignKey<DocenteDetalle>(d => d.DocenteId)
+                    .OnDelete(DeleteBehavior.Restrict)
+                    .HasConstraintName("FK_DocenteDetalle_Docente");
+
+                entity.HasOne(d => d.EntidadFederativa)
+                    .WithMany(p => p.DocenteDetalleEntidadFederativa)
+                    .HasForeignKey(d => d.EntidadFederativaId)
+                    .HasConstraintName("FK_DocenteDetalle_EntidadFederativa1");
+
+                entity.HasOne(d => d.EntidadNacimiento)
+                    .WithMany(p => p.DocenteDetalleEntidadNacimiento)
+                    .HasForeignKey(d => d.EntidadNacimientoId)
+                    .HasConstraintName("FK_DocenteDetalle_EntidadFederativa");
+
+                entity.HasOne(d => d.EstadoCivil)
+                    .WithMany(p => p.DocenteDetalle)
+                    .HasForeignKey(d => d.EstadoCivilId)
+                    .HasConstraintName("FK_DocenteDetalle_EstadoCivil");
+
+                entity.HasOne(d => d.Genero)
+                    .WithMany(p => p.DocenteDetalle)
+                    .HasForeignKey(d => d.GeneroId)
+                    .HasConstraintName("FK_DocenteDetalle_Genero");
+
+                entity.HasOne(d => d.Pais)
+                    .WithMany(p => p.DocenteDetalle)
+                    .HasForeignKey(d => d.PaisId)
+                    .HasConstraintName("FK_DocenteDetalle_Pais");
+
+                entity.HasOne(d => d.Municipio)
+                    .WithMany(p => p.DocenteDetalle)
+                    .HasForeignKey(d => new { d.MunicipioId, d.EntidadFederativaId })
+                    .HasConstraintName("FK_DocenteDetalle_Municipio");
             });
 
             modelBuilder.Entity<DocenteDetalle1>(entity =>

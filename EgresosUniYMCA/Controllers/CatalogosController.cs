@@ -17,8 +17,8 @@ namespace EgresosUniYMCA.Controllers
         private readonly UniversidadContext _db;
         public CatalogosController(UniversidadContext db) { _db = db; }
 
-        [HttpGet("altadocente")]
-        public IActionResult AltaDocente()
+        [HttpGet("AltaDocenteCatalogo")]
+        public IActionResult AltaDocenteCatalogo()
         {
 
             List<DTOPais> pais = _db.Pais.Select(b => new DTOPais
@@ -103,7 +103,7 @@ namespace EgresosUniYMCA.Controllers
             return Ok(catalogos);
         }
 
-        [HttpGet("municipio/{estadoId}")]
+        [HttpGet("Municipio/{estadoId}")]
         public IActionResult Municipio(int estadoId)
         {
 

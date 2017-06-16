@@ -12,6 +12,7 @@
       </p-steps>
     </div>
 
+    <p-confirmDialog width="425"></p-confirmDialog>
 
     <div class="ui-md-12">
       <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid">
@@ -23,38 +24,38 @@
               <div class="ui-grid-row">
 
                 <div class="ui-md-6">
-                  <div class="ui-grid-row">
+                  <div class="ui-grid-row" formGroupName="xcoordinador">
                     <div class="ui-md-10">
                       Nombre
                       <input type="text" pInputText formControlName="nombre" />
                     </div>
                     <div class="ui-md-2">
                       <br />
-                      <div class="ui-message ui-messages-error ui-corner-all " *ngIf="!tab1form.controls['nombre'].valid&&(tab1form.controls['nombre'].dirty||validar)">
+                      <div class="ui-message ui-messages-error ui-corner-all " *ngIf="!tab1form.get('xcoordinador').get('nombre').valid&&validarCoor">
                         <i class="fa fa-close"></i>
                       </div>
                     </div>
                   </div>
-                  <div class="ui-grid-row">
+                  <div class="ui-grid-row" formGroupName="xcoordinador">
                     <div class="ui-md-10">
                       Apellido Paterno
                       <input type="text" pInputText formControlName="paterno" />
                     </div>
                     <div class="ui-md-2">
                       <br />
-                      <div class="ui-message ui-messages-error ui-corner-all " *ngIf="!tab1form.controls['paterno'].valid&&(tab1form.controls['paterno'].dirty||validar)">
+                      <div class="ui-message ui-messages-error ui-corner-all " *ngIf="!tab1form.get('xcoordinador').get('paterno').valid&&validarCoor">
                         <i class="fa fa-close"></i>
                       </div>
                     </div>
                   </div>
-                  <div class="ui-grid-row">
+                  <div class="ui-grid-row" formGroupName="xcoordinador">
                     <div class="ui-md-10">
                       Apellido Materno
                       <input type="text" pInputText formControlName="materno" />
                     </div>
                     <div class="ui-md-2">
                       <br />
-                      <div class="ui-message ui-messages-error ui-corner-all " *ngIf="!tab1form.controls['materno'].valid&&(tab1form.controls['materno'].dirty||validar)">
+                      <div class="ui-message ui-messages-error ui-corner-all " *ngIf="!tab1form.get('xcoordinador').get('materno').valid&&validarCoor">
                         <i class="fa fa-close"></i>
                       </div>
                     </div>
@@ -66,7 +67,7 @@
                     </div>
                     <div class="ui-md-2">
                       <br />
-                      <div class="ui-message ui-messages-error ui-corner-all " *ngIf="!tab1form.controls['nacionalidad'].valid&&(tab1form.controls['nacionalidad'].dirty||validar)">
+                      <div class="ui-message ui-messages-error ui-corner-all " *ngIf="!tab1form.get('nacionalidad').valid&&validar">
                         <i class="fa fa-close"></i>
                       </div>
                     </div>
@@ -78,7 +79,7 @@
                     </div>
                     <div class="ui-md-2">
                       <br />
-                      <div class="ui-message ui-messages-error ui-corner-all " *ngIf="!tab1form.controls['lugarnacimiento'].valid&&(tab1form.controls['lugarnacimiento'].dirty||validar)">
+                      <div class="ui-message ui-messages-error ui-corner-all " *ngIf="!tab1form.get('lugarnacimiento').valid&&validar">
                         <i class="fa fa-close"></i>
                       </div>
                     </div>
@@ -93,7 +94,7 @@
                     </div>
                     <div class="ui-md-2">
                       <br />
-                      <div class="ui-message ui-messages-error ui-corner-all " *ngIf="!tab1form.controls['nomigracion'].valid&&(tab1form.controls['nomigracion'].dirty||validar)">
+                      <div class="ui-message ui-messages-error ui-corner-all " *ngIf="!tab1form.get('nomigracion').valid&&validar">
                         <i class="fa fa-close"></i>
                       </div>
                     </div>
@@ -105,7 +106,7 @@
                     </div>
                     <div class="ui-md-2">
                       <br />
-                      <div class="ui-message ui-messages-error ui-corner-all " *ngIf="!tab1form.controls['nacimiento'].valid&&(tab1form.controls['nacimiento'].dirty||validar)">
+                      <div class="ui-message ui-messages-error ui-corner-all " *ngIf="!tab1form.get('nacimiento').valid&&validar">
                         <i class="fa fa-close"></i>
                       </div>
                     </div>
@@ -117,7 +118,7 @@
                     </div>
                     <div class="ui-md-2">
                       <br />
-                      <div class="ui-message ui-messages-error ui-corner-all " *ngIf="!tab1form.controls['curp'].valid&&(tab1form.controls['curp'].dirty||validar)">
+                      <div class="ui-message ui-messages-error ui-corner-all " *ngIf="!tab1form.get('curp').valid&&validar">
                         <i class="fa fa-close"></i>
                       </div>
                     </div>
@@ -130,7 +131,7 @@
                     </div>
                     <div class="ui-md-2">
                       <br />
-                      <div class="ui-message ui-messages-error ui-corner-all " *ngIf="!tab1form.controls['genero'].valid&&(tab1form.controls['genero'].dirty||validar)">
+                      <div class="ui-message ui-messages-error ui-corner-all " *ngIf="!tab1form.get('genero').valid&&validar">
                         <i class="fa fa-close"></i>
                       </div>
                     </div>
@@ -142,7 +143,7 @@
                     </div>
                     <div class="ui-md-2">
                       <br />
-                      <div class="ui-message ui-messages-error ui-corner-all " *ngIf="!tab1form.controls['estadocivil'].valid&&(tab1form.controls['estadocivil'].dirty||validar)">
+                      <div class="ui-message ui-messages-error ui-corner-all " *ngIf="!tab1form.get('estadocivil').valid&&validar">
                         <i class="fa fa-close"></i>
                       </div>
                     </div>
@@ -159,15 +160,15 @@
 
               <div class="ui-grid-row">
 
-                <div class="ui-md-6">
+                <div class="ui-md-6" formGroupName="xcoordinador">
                   <div class="ui-grid-row">
                     <div class="ui-md-10">
                       Telefono Celular
-                      <input type="text" pInputText formControlName="celular" />
+                      <input type="text" onKeypress="if (event.keyCode < 48 || event.keyCode > 57) event.returnValue = false;" pInputText formControlName="celular" />
                     </div>
                     <div class="ui-md-2">
                       <br />
-                      <div class="ui-message ui-messages-error ui-corner-all " *ngIf="!tab1form.controls['celular'].valid&&(tab1form.controls['celular'].dirty||validar)">
+                      <div class="ui-message ui-messages-error ui-corner-all " *ngIf="!tab1form.get('xcoordinador').get('celular').valid&&validarCoor">
                         <i class="fa fa-close"></i>
                       </div>
                     </div>
@@ -175,11 +176,11 @@
                   <div class="ui-grid-row">
                     <div class="ui-md-10">
                       Telefono Casa
-                      <input type="text" pInputText formControlName="telcasa" />
+                      <input type="text" onKeypress="if (event.keyCode < 48 || event.keyCode > 57) event.returnValue = false;" pInputText formControlName="telcasa" />
                     </div>
                     <div class="ui-md-2">
                       <br />
-                      <div class="ui-message ui-messages-error ui-corner-all " *ngIf="!tab1form.controls['telcasa'].valid&&(tab1form.controls['telcasa'].dirty||validar)">
+                      <div class="ui-message ui-messages-error ui-corner-all " *ngIf="!tab1form.get('xcoordinador').get('telcasa').valid&&validarCoor">
                         <i class="fa fa-close"></i>
                       </div>
                     </div>
@@ -187,11 +188,11 @@
                   <div class="ui-grid-row">
                     <div class="ui-md-10">
                       Telefono Oficina
-                      <input type="text" pInputText formControlName="teloficina" />
+                      <input type="text" onKeypress="if (event.keyCode < 48 || event.keyCode > 57) event.returnValue = false;" pInputText formControlName="teloficina" />
                     </div>
                     <div class="ui-md-2">
                       <br />
-                      <div class="ui-message ui-messages-error ui-corner-all " *ngIf="!tab1form.controls['teloficina'].valid&&(tab1form.controls['teloficina'].dirty||validar)">
+                      <div class="ui-message ui-messages-error ui-corner-all " *ngIf="!tab1form.get('xcoordinador').get('teloficina').valid&&validarCoor">
                         <i class="fa fa-close"></i>
                       </div>
                     </div>
@@ -200,14 +201,14 @@
                 </div>
 
                 <div class="ui-md-6">
-                  <div class="ui-grid-row">
+                  <div class="ui-grid-row" formGroupName="xcoordinador">
                     <div class="ui-md-10">
                       Email
                       <input type="text" pInputText formControlName="email" />
                     </div>
                     <div class="ui-md-2">
                       <br />
-                      <div class="ui-message ui-messages-error ui-corner-all " *ngIf="!tab1form.controls['email'].valid&&(tab1form.controls['email'].dirty||validar)">
+                      <div class="ui-message ui-messages-error ui-corner-all " *ngIf="!tab1form.get('xcoordinador').get('email').valid&&validarCoor">
                         <i class="fa fa-close"></i>
                       </div>
                     </div>
@@ -219,7 +220,7 @@
                     </div>
                     <div class="ui-md-2">
                       <br />
-                      <div class="ui-message ui-messages-error ui-corner-all " *ngIf="!tab1form.controls['emailuni'].valid&&(tab1form.controls['emailuni'].dirty||validar)">
+                      <div class="ui-message ui-messages-error ui-corner-all " *ngIf="!tab1form.get('emailuni').valid&&validar">
                         <i class="fa fa-close"></i>
                       </div>
                     </div>
@@ -229,11 +230,6 @@
             </p-panel>
 
 
-            <div style="text-align:center;margin-top:20px" *ngIf="submitted">
-              Form Submitted
-              <br>
-              {{diagnostic}}
-            </div>
           </form>
         </p-tabPanel>
 
@@ -277,12 +273,12 @@
                     <button type="button" pButton (click)="editarEstudio(estudio)" icon="fa-refresh"></button>
                   </ng-template>
                 </p-column>
-                <p-footer><div class="ui-helper-clearfix" style="width:10%"><button type="button" pButton icon="fa-plus" style="float:left" (click)="showDialog()" label="Agregar"></button></div></p-footer>
+                <p-footer><div class="ui-helper-clearfix" style="width:10%"><button type="button" pButton icon="fa-plus" style="float:left" (click)="addEstudio()" label="Agregar"></button></div></p-footer>
               </p-dataTable>
 
               <!--dialog estudios-->
-              <p-dialog header="Estudios Docente" [(visible)]="displayDialog" [responsive]="true" showEffect="fade" [modal]="true" width="800" >
-                <div class="ui-grid ui-grid-responsive ui-fluid"   >
+              <p-dialog header="Estudios Docente" [(visible)]="displayDialog" [responsive]="true" showEffect="fade" [modal]="true" width="800">
+                <div class="ui-grid ui-grid-responsive ui-fluid">
 
                   <div class="ui-grid-row" formGroupName="estudios">
 
@@ -294,7 +290,7 @@
                         </div>
                         <div class="ui-md-2">
                           <br />
-                          <div class="ui-message ui-messages-error ui-corner-all " *ngIf="!tab2form.controls['estudios'].controls['institucion'].valid&&(tab2form.controls['estudios'].controls['institucion'].dirty||validar)">
+                          <div class="ui-message ui-messages-error ui-corner-all " *ngIf="!tab2form.get('estudios').get('institucion').valid&&validar">
                             <i class="fa fa-close"></i>
                           </div>
                         </div>
@@ -306,7 +302,7 @@
                         </div>
                         <div class="ui-md-2">
                           <br />
-                          <div class="ui-message ui-messages-error ui-corner-all " *ngIf="!tab2form.controls['estudios'].controls['grado'].valid&&(tab2form.controls['estudios'].controls['grado'].dirty||validar)">
+                          <div class="ui-message ui-messages-error ui-corner-all " *ngIf="!tab2form.get('estudios').get('grado').valid&&validar">
                             <i class="fa fa-close"></i>
                           </div>
                         </div>
@@ -318,7 +314,7 @@
                         </div>
                         <div class="ui-md-2">
                           <br />
-                          <div class="ui-message ui-messages-error ui-corner-all " *ngIf="!tab2form.controls['estudios'].controls['carrera'].valid&&(tab2form.controls['estudios'].controls['carrera'].dirty||validar)">
+                          <div class="ui-message ui-messages-error ui-corner-all " *ngIf="!tab2form.get('estudios').get('carrera').valid&&validar">
                             <i class="fa fa-close"></i>
                           </div>
                         </div>
@@ -330,19 +326,19 @@
                       <!--cedula-->
                       <div class="ui-grid-row">
                         <div class="ui-md-5">
-                          <p-checkbox name="group1" value="true" label="Cedula" formControlName="cedula"></p-checkbox>
+                          <p-checkbox name="group1" value="Si" label="Cedula" formControlName="cedula"></p-checkbox>
                         </div>
                         <div class="ui-md-7">
-                          <file-app (Documento)="onUpload($event,'estudios','ceduladoc')"></file-app>
+                          <file-app [visible]="doc[0].visible" [documento]="doc[0].nombre" (Documento)="onUpload($event,'estudios','ceduladoc',0)"></file-app>
                         </div>
                       </div>
                       <!--Titulo-->
                       <div class="ui-grid-row">
                         <div class="ui-md-5">
-                          <p-checkbox name="group1" value="true" label="Titulo" formControlName="titulo"></p-checkbox>
+                          <p-checkbox name="group1" value="Si" label="Titulo" formControlName="titulo"></p-checkbox>
                         </div>
                         <div class="ui-md-7">
-                          <file-app (Documento)="onUpload($event,'estudios','titulodoc')"></file-app>
+                          <file-app [visible]="doc[1].visible" [documento]="doc[1].nombre" (Documento)="onUpload($event,'estudios','titulodoc',1)"></file-app>
                         </div>
                       </div>
                     </div>
@@ -353,12 +349,10 @@
                 <p-footer>
                   <div class="ui-dialog-buttonpane ui-helper-clearfix">
                     <button type="button" pButton icon="fa-close" (click)="delete()" label="Eliminar" style="width:13%"></button>
-                    <button type="button" pButton icon="fa-check" (click)="AddEstudio()" label="Guardar" style="width:13%"></button>
+                    <button type="button" pButton icon="fa-check" (click)="crudEstudio()" label="Guardar" style="width:13%"></button>
                   </div>
                 </p-footer>
               </p-dialog>
-
-
 
             </p-panel>
             <!--Experiencia -->
@@ -374,7 +368,7 @@
                     </div>
                     <div class="ui-md-2">
                       <br />
-                      <div class="ui-message ui-messages-error ui-corner-all " *ngIf="!tab2form.controls['expprofesional'].valid&&(tab2form.controls['expprofesional'].dirty||validar)">
+                      <div class="ui-message ui-messages-error ui-corner-all " *ngIf="!tab2form.get('expprofesional').valid&&validar">
                         <i class="fa fa-close"></i>
                       </div>
                     </div>
@@ -390,7 +384,7 @@
                     </div>
                     <div class="ui-md-2">
                       <br />
-                      <div class="ui-message ui-messages-error ui-corner-all " *ngIf="!tab2form.controls['expdocente'].valid&&(tab2form.controls['expdocente'].dirty||validar)">
+                      <div class="ui-message ui-messages-error ui-corner-all " *ngIf="!tab2form.get('expdocente').valid&&validar">
                         <i class="fa fa-close"></i>
                       </div>
                     </div>
@@ -413,7 +407,7 @@
                     </div>
                     <div class="ui-md-2">
                       <br />
-                      <div class="ui-message ui-messages-error ui-corner-all " *ngIf="!tab2form.controls['tipopublicacion'].valid&&(tab2form.controls['tipopublicacion'].dirty||validar)">
+                      <div class="ui-message ui-messages-error ui-corner-all " *ngIf="!tab2form.get('tipopublicacion').valid&&validar">
                         <i class="fa fa-close"></i>
                       </div>
                     </div>
@@ -645,12 +639,16 @@
 
     </div>
 
-
     <div class="ui-md-12">
-      <button pButton type="button" (click)="Atras()" label="Atras"></button>
-      <button pButton type="submit" (click)="Siguente()" label="Siguente"></button>
-
+      <div class="ui-grid-row">
+        <div class="ui-md-11"></div>
+        <div class="ui-md-1">
+          <button pButton type="button" *ngIf="activeIndex>0" (click)="Regresar()" label="Regresar"></button>
+          <button pButton type="button" (click)="Continuar()" label="Continuar"></button>
+        </div>
+      </div>
     </div>
+
 
 
   </div>
