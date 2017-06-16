@@ -3,6 +3,7 @@ import { Component, Injectable, OnInit, ViewEncapsulation } from '@angular/core'
 import { Http, Headers, Response, RequestOptions } from '@angular/http';
 import { Validators, FormControl, FormGroup, FormBuilder } from '@angular/forms';
 
+
 import {
     MenuModule,
     MenuItem,
@@ -62,17 +63,16 @@ export class AltaDocenteComponent implements OnInit {
     public catalogos;
     public nacimientoLugar;
     public genero;
-    public estadocivil;
+    public estadoCivil;
     public estado;
     public municipio;
-    public estadof;
-    public municipiof;
+    public ofertasTipo: catalogo;
     nacional: SelectItem[];
     //valores inicales catalogos//
     slcNacionalidad: string = '1';
     slcLugarNacimineto: string = '9';
-    sclEstado: string ='9' ;
-    sclEstadoF: string = '9' ;
+    sclEstado: string = '9';
+    sclEstadoF: string = '9';
     //formulario//
     validar: boolean = false;
     checked: boolean = false;
@@ -83,37 +83,43 @@ export class AltaDocenteComponent implements OnInit {
     tab3form: FormGroup;
     submitted: boolean;
     description: string;
-    uploadedFiles: any[] = [];
-    constructor(private http: Http, private  fb: FormBuilder) { }
+    ///estudios docente//
+    displayDialog: boolean;
+    public Estudios: GradoAcademico[] = [];
+
+
+    constructor(private http: Http, private fb: FormBuilder) {
+
+    }
 
     ngOnInit() {
 
         //Wizard//
         this.items = [
             {
-            label: 'Personales',
-            command: (event: any) => {
-                this.activeIndex = 0;
+                label: 'Personales',
+                command: (event: any) => {
+                    this.activeIndex = 0;
+                }
+            },
+            {
+                label: 'Formacion Profesional',
+                command: (event: any) => {
+                    this.activeIndex = 1;
+                }
+            },
+            {
+                label: 'Datos Adicionales',
+                command: (event: any) => {
+                    this.activeIndex = 2;
+                }
+            },
+            {
+                label: 'Fin',
+                command: (event: any) => {
+                    this.activeIndex = 3;
+                }
             }
-        },
-        {
-            label: 'Formacion Profesional',
-            command: (event: any) => {
-                this.activeIndex = 1;
-            }
-        },
-        {
-            label: 'Datos Adicionales',
-            command: (event: any) => {
-                this.activeIndex = 2;
-            }
-        },
-        {
-            label: 'Fin',
-            command: (event: any) => {
-                this.activeIndex = 3;
-            }
-        }
         ];
 
         //formato calendario//
@@ -140,18 +146,23 @@ export class AltaDocenteComponent implements OnInit {
             'celular': new FormControl('', Validators.compose([Validators.required, Validators.minLength(3)])),
             'telcasa': new FormControl('', Validators.compose([Validators.required, Validators.minLength(3)])),
             'teloficina': new FormControl('', Validators.compose([Validators.required, Validators.minLength(3)])),
-            'email': new FormControl('', Validators.required),
-            'emailuni': new FormControl('', Validators.required),
-            
+            'email': new FormControl('', this.emailValidator),
+            'emailuni': new FormControl('', this.emailValidator)
         });
-     
-        this.tab2form = this.fb.group({
-            'institucion': new FormControl('', Validators.required),
-            'nivel': new FormControl('', Validators.required),
-            'carrera': new FormControl('', Validators.required),
-            'comprobante': new FormControl('', Validators.required)
-        
 
+        this.tab2form = this.fb.group({
+            estudios: this.fb.group({
+                'institucion': new FormControl('', Validators.required),
+                'grado': new FormControl('', Validators.required),
+                'carrera': new FormControl('', Validators.required),
+                'cedula': new FormControl(''),
+                'ceduladoc': new FormControl(''),
+                'titulo': new FormControl(''),
+                'titulodoc': new FormControl(''),
+            }),
+            'expprofesional': new FormControl('', Validators.required),
+            'expdocente': new FormControl('', Validators.required),
+            'tipopublicacion': new FormControl('', Validators.required)
         });
 
         this.tab3form = this.fb.group({
@@ -186,7 +197,7 @@ export class AltaDocenteComponent implements OnInit {
         this.nacional.push({ label: '--Seleccionar--', value: '' });
         this.nacional.push({ label: 'Mexicana ', value: '1' });
         this.nacional.push({ label: 'Extranjera ', value: '2' });
-       
+
         this.http.get('/api/Catalogos/altadocente').subscribe(result => {
             this.catalogos = result.json();
             //Lugar Nacimiento
@@ -194,48 +205,45 @@ export class AltaDocenteComponent implements OnInit {
             //Genero//
             this.genero = this.catalogos.generos;
             //Estado Civil
-            this.estadocivil=this.catalogos.estadosCiviles;
+            this.estadoCivil = this.catalogos.estadosCiviles;
             //Estado//
             this.estado = this.catalogos.entidades;
             this.ChangeEstado();
-            this.estadof = this.catalogos.entidades;
             //Municipio  Delegacion//
             this.municipio = this.catalogos.entidades;
-            this.municipiof = this.catalogos.entidades;
+            //ofetas tipo//
+            this.ofertasTipo = this.catalogos.ofertasTipo;
         });
 
-     
+
     }
 
-    ChangeNacionalidad()
-    {
+    ChangeNacionalidad() {
         if (this.slcNacionalidad == "1") {
             this.nacimientoLugar = this.catalogos.entidades;
-        } else if (this.slcNacionalidad == "2")
-        {
+        } else if (this.slcNacionalidad == "2") {
             this.nacimientoLugar = this.catalogos.paises;
         } else {
-            this.nacimientoLugar = [{ label: '--Seleccionar--', value: ''}];
+            this.nacimientoLugar = [{ label: '--Seleccionar--', value: '' }];
         }
     }
 
     ChangeEstado() {
-        
+
         if (this.sclEstado != "") {
             this.http.get('/api/catalogos/municipio/' + this.sclEstado).subscribe(result => {
                 this.municipio = result.json();
+
             });
-        } else
-        {
+        } else {
             this.municipio = [{ label: '--Seleccionar--', value: '' }];
         }
-        
+
     }
 
     Siguente() {
-       
-        if (this.activeIndex < 3)
-        {
+
+        if (this.activeIndex < 3) {
             //if (this.activeIndex == 0)
             //{
             //    if (!this.tab1form.valid)
@@ -257,19 +265,46 @@ export class AltaDocenteComponent implements OnInit {
     }
 
     Atras() {
-        if (this.activeIndex > 0)
-        {
+        if (this.activeIndex > 0) {
             this.activeIndex = this.activeIndex - 1;
             this.activarTabs();
         }
-        
+
     }
 
+    showDialog() {
+        this.displayDialog = true;
+    }
 
+    AddEstudio() {
+
+        let estudios = [...this.Estudios];
+
+        let azul = this.ofertasTipo;
+
+        estudios.push({
+            institucion: this.tab2form.get('estudios').get("institucion").value,
+            grado: this.tab2form.get('estudios').get("grado").value,
+            carrera: this.tab2form.get('estudios').get("carrera").value,
+            cedula: this.tab2form.get('estudios').get("cedula").value == 'true' ? 'Si' : 'NO',
+            ceduladoc: this.tab2form.get('estudios').get("ceduladoc").value,
+            titulo: this.tab2form.get('estudios').get("titulo").value == 'true' ? 'Si' : 'NO',
+            titulodoc: this.tab2form.get('estudios').get("titulodoc").value
+        });
+
+        this.Estudios = estudios;
+        this.displayDialog = false;
+        this.tab2form.get('estudios').reset();
+    }
+
+    editarEstudio(estudio : GradoAcademico)
+    {
+
+    }
+    
     activarTabs() {
-        if (this.activeIndex == 0)
-        {
-            this.tab1 = true;  
+        if (this.activeIndex == 0) {
+            this.tab1 = true;
             this.tab2 = false;
             this.tab3 = false;
         } else if (this.activeIndex == 1) {
@@ -285,7 +320,7 @@ export class AltaDocenteComponent implements OnInit {
     }
 
     //valida correo electronico//
-   emailValidator(control) {
+    emailValidator(control) {
         // RFC 2822 compliant regex
         if (control.value.match(/[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/)) {
             return null;
@@ -295,14 +330,30 @@ export class AltaDocenteComponent implements OnInit {
     }
 
     //cargar archivo//
-   onUpload(event) {
-       for (let file of event.files) {
-           this.uploadedFiles.push(file);
-       }
+    onUpload(file: any,formulario : string, componente: string) {
+        if (file != undefined) {
+            this.tab2form.get(formulario).get(componente).setValue(file.nombre);
+        } else {
+            this.tab2form.get(formulario).get(componente).setValue("");
+        }
+    }
 
-       this.msgs = [];
-       this.msgs.push({ severity: 'info', summary: 'File Uploaded', detail: '' });
-   }
 
 }
+
+
+export interface GradoAcademico {
+    institucion;
+    grado;
+    carrera;
+    cedula;
+    ceduladoc;
+    titulo;
+    titulodoc;
+}
+
+export interface catalogo {
+    value;
+    label;
+};
 

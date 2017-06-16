@@ -46,13 +46,23 @@ namespace EgresosUniYMCA.Controllers
                 label = b.Descripcion
             }).ToList();
 
-            List<DTOEstadoCivil> estadocivil = _db.EstadoCivil.Select(b => new DTOEstadoCivil
+            List<DTOEstadoCivil> estadoCivil = _db.EstadoCivil.Select(b => new DTOEstadoCivil
             {
                 EstadoCivilId = b.EstadoCivilId,
                 Descripcion = b.Descripcion,
                 value = b.EstadoCivilId.ToString(),
                 label = b.Descripcion
             }).ToList();
+
+            List<DTOOfertaEducativaTipo> ofertasTipo = _db.OfertaEducativaTipo.Where(a => a.OfertaEducativaTipoId != 4)
+                                                                              .Select(b => new DTOOfertaEducativaTipo
+                                                                              {
+                                                                                  OfertaEducativaTipoId = b.OfertaEducativaTipoId,
+                                                                                  Descripcion = b.Descripcion,
+                                                                                  value = b.OfertaEducativaTipoId.ToString(),
+                                                                                  label = b.Descripcion
+                                                                              }).ToList();
+
 
             DTOCatalogos catalogos = new DTOCatalogos();
 
@@ -77,13 +87,19 @@ namespace EgresosUniYMCA.Controllers
                 label = "--Seleccionar--",
                 value = ""
             });
+            catalogos.OfertasTipo.Add(new DTOOfertaEducativaTipo
+            {
+                label = "--Seleccionar--",
+                value = ""
+            });
+
 
             //Agregar catalogos//
             catalogos.Paises.AddRange(pais);
             catalogos.Entidades.AddRange(entidad);
             catalogos.Generos.AddRange(genero);
-            catalogos.EstadosCiviles.AddRange(estadocivil);
-
+            catalogos.EstadosCiviles.AddRange(estadoCivil);
+            catalogos.OfertasTipo.AddRange(ofertasTipo);
             return Ok(catalogos);
         }
 

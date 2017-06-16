@@ -13,11 +13,13 @@ namespace EgresosUniYMCA.DTO
             Entidades = new List<DTOEntidadFederativa>();
             Generos = new List<DTOGenero>();
             EstadosCiviles = new List<DTOEstadoCivil>();
+            OfertasTipo = new List<DTOOfertaEducativaTipo>();
         }
         public List<DTOPais> Paises { get; set; }
         public List<DTOEntidadFederativa> Entidades { get; set; }
         public List<DTOGenero> Generos { get; set; }
         public List<DTOEstadoCivil> EstadosCiviles { get; set; }
+        public List<DTOOfertaEducativaTipo> OfertasTipo { get; set; }
     }
 
     public class DTOPais
@@ -64,6 +66,16 @@ namespace EgresosUniYMCA.DTO
 
         public string value { get; set; }
         public string label { get; set; }
+    }
+
+    public class DTOOfertaEducativaTipo
+    {
+        public int OfertaEducativaTipoId { get; set; }
+        public string Descripcion { get; set; }
+
+        public string value { get; set; }
+        public string label { get; set; }
+
     }
 
 
