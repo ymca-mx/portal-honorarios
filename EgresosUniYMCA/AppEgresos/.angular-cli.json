@@ -23,9 +23,15 @@
         "styles.css",
         "../node_modules/primeng/resources/themes/omega/theme.css",
         "../node_modules/font-awesome/css/font-awesome.min.css",
-        "../node_modules/primeng/resources/primeng.min.css"
+        "../node_modules/primeng/resources/primeng.min.css",
+        "Plugins/Menu-Plug/nav-icon.css",
+        "Plugins/Menu-Plug/normalize.css",
+        "Plugins/Menu-Plug/style.css"
       ],
-      "scripts": [],
+      "scripts": [
+        "Plugins/Menu-Plug/Sliiide.js",
+        "Plugins/Menu-Plug/app-menu.js"
+      ],
       "environmentSource": "environments/environment.ts",
       "environments": {
         "dev": "environments/environment.ts",
