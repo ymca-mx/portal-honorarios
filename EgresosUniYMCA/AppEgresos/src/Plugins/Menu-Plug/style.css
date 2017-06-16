@@ -10,7 +10,7 @@ body {
   background-position: center;
 }
 
-h1 {
+/*h1 {
   color: white;
   font-family: 'PayTone One';
   font-weight: 300;
@@ -18,15 +18,15 @@ h1 {
   margin: 0;
   padding: 0 20px;
 }
-
+*/
 h2 {
-  color: white;
+  color: black;
   font-family: Lato;
   font-weight: 300;
   font-size: 32px;
-  margin: 10px auto 30px auto;
   max-width: 800px;
   padding: 0 20px;
+  text-align:left;
 }
 
 .flex-center-wrapper {
