@@ -15,6 +15,9 @@
     <p-confirmDialog width="425"></p-confirmDialog>
 
     <div class="ui-md-12">
+
+    </div>
+    <div class="ui-md-12">
       <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid">
         <p-tabPanel [selected]="tab1" style="border:0px solid !important">
           <form [formGroup]="tab1form">
@@ -639,14 +642,11 @@
 
     </div>
 
-    <div class="ui-md-12">
-      <div class="ui-grid-row">
-        <div class="ui-md-11"></div>
-        <div class="ui-md-1">
-          <button pButton type="button" *ngIf="activeIndex>0" (click)="Regresar()" label="Regresar"></button>
-          <button pButton type="button" (click)="Continuar()" label="Continuar"></button>
-        </div>
-      </div>
+    <div class="ui-md-12 buttoncenter">
+      <hr />
+      <button pButton type="button" *ngIf="activeIndex>0" (click)="Regresar()" label="Regresar"></button>
+      <button pButton type="button" (click)="Continuar()" label="Continuar"></button>
+
     </div>
 
 

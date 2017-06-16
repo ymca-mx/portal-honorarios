@@ -46,6 +46,14 @@ import {
          .ui-widget-content {
          border: 0px solid !important;
         }
+.container-fluid
+{
+text-align: left;
+}
+.buttoncenter
+{
+text-align: center;
+}
 
     `],
     encapsulation: ViewEncapsulation.None,
@@ -244,13 +252,13 @@ export class AltaDocenteComponent implements OnInit {
 
         if (this.activeIndex < 3) {
             if (this.activeIndex == 0) {
-                if (this.tab1form.controls['xcoordinador'].valid ) {
-                    this.validarCoor = false; 
-                    this.guardaDocente();
-                } else {
-                    this.validarCoor = true;
-                    return false;
-                }
+                //if (this.tab1form.controls['xcoordinador'].valid ) {
+                //    this.validarCoor = false; 
+                //    this.guardaDocente();
+                //} else {
+                //    this.validarCoor = true;
+                //    return false;
+                //}
             } else if (this.activeIndex == 1) {
                 //if (!this.tab2form.valid) {
                 //    this.validar = true;
@@ -259,8 +267,8 @@ export class AltaDocenteComponent implements OnInit {
             }
 
             
-            //this.activeIndex = this.activeIndex + 1;
-            //this.activarTabs();
+            this.activeIndex = this.activeIndex + 1;
+            this.activarTabs();
         }// if (this.activeIndex < 4)
     }
 
