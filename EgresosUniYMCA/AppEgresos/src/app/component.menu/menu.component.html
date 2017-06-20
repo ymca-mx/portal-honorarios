@@ -1,9 +1,43 @@
-﻿<div id="nav-icon2" style="z-index: 9999999;">
+﻿<div class="page-header">
+  <div class="top-menu">
+    <div class="container">
+      <img class="NombreUni" />
+      <ul class="nav navbar-nav pull-right" style="margin-right:0px">
+        <li class="droddown dropdown-separator">
+          <span class="separator"></span>
+        </li>
+        <li dropdown class="dropdown dropdown-user dropdown-dark">
+          <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true" id="lblUsuario" dropdownToggle (click)="false">
+            <img alt="" class="img-circle user" id="imgUsuario" />
+            <span class="username username-hide-mobile">Usuario del sistema</span>
+          </a>
+          <ul class="dropdown-menu dropdown-menu-default">
+
+            <li>
+              <a href="javascript:;">
+                <i class="glyphicon glyphicon-user"></i> Mi perfil
+              </a>
+            </li>
+            <li class="divider">
+            </li>
+            <li>
+              <a href="">
+                <i class="icon-key"></i> Salir
+              </a>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <a href="javascript:;" class="menu-toggler"></a>
+</div>
+<div id="nav-icon2" style="z-index: 9999999;">
   <div class="crop-img">
-    <img class="ymcaimg" style="background-color:white;" />
+    <img class="ymcaimg" />
   </div>
 </div>
-<div class="sliding-menu flex-center-wrapper flex-column left-menu" >
+<div class="sliding-menu flex-center-wrapper flex-column left-menu" style="padding:0;margin:0; height:100%">
   <ul style="position:relative;">
     <li class='navbar-header' style="list-style: none; display: inline; border-left:0px; border-right:0px">
       <a class='navbar-brand' [routerLink]="['/home']">Home</a>
