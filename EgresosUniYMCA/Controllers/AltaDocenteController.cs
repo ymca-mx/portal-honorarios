@@ -117,9 +117,16 @@ namespace EgresosUniYMCA.Controllers
             }
             else if (Estudio.crud=="2")
             {
-
+                DocenteEstudio estudioEditar = _db.DocenteEstudio.Where(a => a.EstudioId == int.Parse(Estudio.estudioId)).FirstOrDefault();
+                estudioEditar.Institucion = Estudio.institucion;
+                estudioEditar.OfertaEducativaTipoId = int.Parse(Estudio.gradoid);
+                estudioEditar.Carrera = Estudio.carrera;
+                estudioEditar.Cedula = Estudio.cedula == "true" ? true : false;
+                estudioEditar.Titulo = Estudio.titulo == "true" ? true : false;
+                estudioEditar.Fecha = DateTime.Now;
+                estudioEditar.Hora = DateTime.Now.TimeOfDay;
             }
-            
+
 
 
             List<DTOEstudio> estudioDocente = _db.DocenteEstudio.Where(a=> a.DocenteId == int.Parse(Estudio.docenteid))
