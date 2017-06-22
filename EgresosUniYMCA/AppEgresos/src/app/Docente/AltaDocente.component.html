@@ -1,24 +1,29 @@
 ﻿<div class="container-fluid">
   <div class="ui-md-12">
 
+    <h1 style="color:green;">Alta Docente</h1>
 
-    <div class="ui-md-12">
-      <h2>Alta Docente</h2>
+    <p-confirmDialog width="425"></p-confirmDialog>
 
-    </div>
-
-    <div class="ui-md-12" style="margin:40px 0px">
+    <div class="ui-md-12" style="margin:30px 0px">
       <p-steps [model]="items" [(activeIndex)]="activeIndex" styleClass="steps-custom">
       </p-steps>
     </div>
 
-    <p-confirmDialog width="425"></p-confirmDialog>
 
-    <div class="ui-md-12">
 
-    </div>
     <div class="ui-md-12">
       <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid">
+        
+        <div class="ui-md-3" *ngIf="docenteId!=''">
+          <div class="ui-grid-row">
+              <h4 style="color:grey;"> Docente </h4>
+            <div class="ui-md-5">
+              <input type="text" [(ngModel)]="docenteId" pInputText readonly >
+            </div>
+            </div>
+        </div>
+
         <p-tabPanel [selected]="tab1" style="border:0px solid !important">
           <form [formGroup]="tab1form">
             <!--datos personales-->
@@ -34,7 +39,7 @@
                     </div>
                     <div class="ui-md-2">
                       <br />
-                      <div class="ui-message ui-messages-error ui-corner-all " *ngIf="!tab1form.get('xcoordinador').get('nombre').valid&&validarCoor">
+                      <div class="ui-message ui-messages-error ui-corner-all " *ngIf="!tab1form.get('xcoordinador').get('nombre').valid&&v.validarCoor">
                         <i class="fa fa-close"></i>
                       </div>
                     </div>
@@ -46,7 +51,7 @@
                     </div>
                     <div class="ui-md-2">
                       <br />
-                      <div class="ui-message ui-messages-error ui-corner-all " *ngIf="!tab1form.get('xcoordinador').get('paterno').valid&&validarCoor">
+                      <div class="ui-message ui-messages-error ui-corner-all " *ngIf="!tab1form.get('xcoordinador').get('paterno').valid&&v.validarCoor">
                         <i class="fa fa-close"></i>
                       </div>
                     </div>
@@ -58,15 +63,15 @@
                     </div>
                     <div class="ui-md-2">
                       <br />
-                      <div class="ui-message ui-messages-error ui-corner-all " *ngIf="!tab1form.get('xcoordinador').get('materno').valid&&validarCoor">
+                      <div class="ui-message ui-messages-error ui-corner-all " *ngIf="!tab1form.get('xcoordinador').get('materno').valid&&v.validarCoor">
                         <i class="fa fa-close"></i>
                       </div>
                     </div>
                   </div>
-                  <div class="ui-grid-row">
+                  <div class="ui-grid-row" re>
                     <div class="ui-md-10">
                       Nacionalidad
-                      <p-dropdown [options]="nacional" formControlName="nacionalidad" [autoWidth]="false" (onChange)="ChangeNacionalidad()" [(ngModel)]="slcNacionalidad"></p-dropdown>
+                      <p-dropdown   [options]="nacional" formControlName="nacionalidad" [autoWidth]="false" (onChange)="ChangeNacionalidad()" [(ngModel)]="slcNacionalidad"></p-dropdown>
                     </div>
                     <div class="ui-md-2">
                       <br />
@@ -102,10 +107,10 @@
                       </div>
                     </div>
                   </div>
-                  <div class="ui-grid-row">
+                  <div class="ui-grid-row" >
                     <div class="ui-md-6">
                       Fecha de Nacimiento
-                      <p-calendar [(ngModel)]="date1" [showIcon]="true" formControlName="nacimiento" [locale]="es" dateFormat="dd/mm/yy"></p-calendar>
+                      <p-calendar  [(ngModel)]="date1" [showIcon]="true" formControlName="nacimiento" [locale]="es" dateFormat="dd/mm/yy"></p-calendar>
                     </div>
                     <div class="ui-md-2">
                       <br />
@@ -117,7 +122,7 @@
                   <div class="ui-grid-row">
                     <div class="ui-md-10">
                       CURP
-                      <input type="text" pInputText formControlName="curp" />
+                      <input  type="text" pInputText formControlName="curp"  />
                     </div>
                     <div class="ui-md-2">
                       <br />
@@ -171,7 +176,7 @@
                     </div>
                     <div class="ui-md-2">
                       <br />
-                      <div class="ui-message ui-messages-error ui-corner-all " *ngIf="!tab1form.get('xcoordinador').get('celular').valid&&validarCoor">
+                      <div class="ui-message ui-messages-error ui-corner-all " *ngIf="!tab1form.get('xcoordinador').get('celular').valid&&v.validarCoor">
                         <i class="fa fa-close"></i>
                       </div>
                     </div>
@@ -183,7 +188,7 @@
                     </div>
                     <div class="ui-md-2">
                       <br />
-                      <div class="ui-message ui-messages-error ui-corner-all " *ngIf="!tab1form.get('xcoordinador').get('telcasa').valid&&validarCoor">
+                      <div class="ui-message ui-messages-error ui-corner-all " *ngIf="!tab1form.get('xcoordinador').get('telcasa').valid&&v.validarCoor">
                         <i class="fa fa-close"></i>
                       </div>
                     </div>
@@ -195,7 +200,7 @@
                     </div>
                     <div class="ui-md-2">
                       <br />
-                      <div class="ui-message ui-messages-error ui-corner-all " *ngIf="!tab1form.get('xcoordinador').get('teloficina').valid&&validarCoor">
+                      <div class="ui-message ui-messages-error ui-corner-all " *ngIf="!tab1form.get('xcoordinador').get('teloficina').valid&&v.validarCoor">
                         <i class="fa fa-close"></i>
                       </div>
                     </div>
@@ -211,7 +216,7 @@
                     </div>
                     <div class="ui-md-2">
                       <br />
-                      <div class="ui-message ui-messages-error ui-corner-all " *ngIf="!tab1form.get('xcoordinador').get('email').valid&&validarCoor">
+                      <div class="ui-message ui-messages-error ui-corner-all " *ngIf="!tab1form.get('xcoordinador').get('email').valid&&v.validarCoor">
                         <i class="fa fa-close"></i>
                       </div>
                     </div>
@@ -249,29 +254,30 @@
                     <p-column header="Institución" rowspan="3"></p-column>
                     <p-column header="Grado Academico" rowspan="3"></p-column>
                     <p-column header="Carrera" rowspan="3"></p-column>
-                    <p-column header="Documentos" colspan="4"></p-column>
+                    <p-column header="Documentos" colspan="2"></p-column>
                     <p-column header="Modificar" rowspan="3"></p-column>
                   </p-row>
                   <p-row>
-                    <p-column header="Cedula" colspan="2"></p-column>
-                    <p-column header="Titulo" colspan="2"></p-column>
-                  </p-row>
-                  <p-row>
-                    <p-column header="Lo tiene"></p-column>
-                    <p-column header="Archivo"></p-column>
-                    <p-column header="Lo tiene"></p-column>
-                    <p-column header="Archivo"></p-column>
+                    <p-column header="Cedula" colspan="1"></p-column>
+                    <p-column header="Titulo" colspan="1"></p-column>
                   </p-row>
                 </p-headerColumnGroup>
 
                 <p-column field="institucion"></p-column>
                 <p-column field="grado"></p-column>
                 <p-column field="carrera"></p-column>
-                <p-column field="cedula"></p-column>
-                <p-column field="ceduladoc"></p-column>
-                <p-column field="titulo"></p-column>
-                <p-column field="titulodoc"></p-column>
-                <p-column field="color" header="Modificar">
+                <p-column field="cedula" [style]="{'text-align':'center'}" >
+                  <ng-template let-data="rowData" pTemplate="body">
+                    {{data.cedula}}  <a style="color:blue" (click)="openFile(data.cedulaurl)" *ngIf="data.cedulaurl != null"  > /{{data.cedulanombre}}</a>
+
+</ng-template>
+                </p-column>
+                <p-column field="titulo"  [style]="{'text-align':'center'}">
+                  <ng-template let-data="rowData"  pTemplate="body">
+                   {{data.titulo}}  <a style="color:blue" (click)="openFile(data.titulourl)" *ngIf="data.titulourl != null" > /{{data.titulonombre}}</a>
+                  </ng-template>
+                </p-column>
+                <p-column field="modificar" >
                   <ng-template let-estudio="rowData" pTemplate="body">
                     <button type="button" pButton (click)="editarEstudio(estudio)" icon="fa-refresh"></button>
                   </ng-template>
@@ -293,7 +299,7 @@
                         </div>
                         <div class="ui-md-2">
                           <br />
-                          <div class="ui-message ui-messages-error ui-corner-all " *ngIf="!tab2form.get('estudios').get('institucion').valid&&validar">
+                          <div class="ui-message ui-messages-error ui-corner-all " *ngIf="!tab2form.get('estudios').get('institucion').valid&&v.validarEst">
                             <i class="fa fa-close"></i>
                           </div>
                         </div>
@@ -305,7 +311,7 @@
                         </div>
                         <div class="ui-md-2">
                           <br />
-                          <div class="ui-message ui-messages-error ui-corner-all " *ngIf="!tab2form.get('estudios').get('grado').valid&&validar">
+                          <div class="ui-message ui-messages-error ui-corner-all " *ngIf="!tab2form.get('estudios').get('grado').valid&&v.validarEst">
                             <i class="fa fa-close"></i>
                           </div>
                         </div>
@@ -317,7 +323,7 @@
                         </div>
                         <div class="ui-md-2">
                           <br />
-                          <div class="ui-message ui-messages-error ui-corner-all " *ngIf="!tab2form.get('estudios').get('carrera').valid&&validar">
+                          <div class="ui-message ui-messages-error ui-corner-all " *ngIf="!tab2form.get('estudios').get('carrera').valid&&v.validarEst">
                             <i class="fa fa-close"></i>
                           </div>
                         </div>
@@ -329,19 +335,19 @@
                       <!--cedula-->
                       <div class="ui-grid-row">
                         <div class="ui-md-5">
-                          <p-checkbox name="group1" value="Si" label="Cedula" formControlName="cedula"></p-checkbox>
+                          <p-checkbox name="group1" value="true" label="Cedula" formControlName="cedula"></p-checkbox>
                         </div>
                         <div class="ui-md-7">
-                          <file-app [visible]="doc[0].visible" [documento]="doc[0].nombre" (Documento)="onUpload($event,'estudios','ceduladoc',0)"></file-app>
+                          <file-app [visible]="doc[0].visible"  (Documento)="onUpload($event,'Cedula',0)"></file-app>
                         </div>
                       </div>
                       <!--Titulo-->
                       <div class="ui-grid-row">
                         <div class="ui-md-5">
-                          <p-checkbox name="group1" value="Si" label="Titulo" formControlName="titulo"></p-checkbox>
+                          <p-checkbox name="group1" value="true" label="Titulo" formControlName="titulo"></p-checkbox>
                         </div>
                         <div class="ui-md-7">
-                          <file-app [visible]="doc[1].visible" [documento]="doc[1].nombre" (Documento)="onUpload($event,'estudios','titulodoc',1)"></file-app>
+                          <file-app [visible]="doc[1].visible"  (Documento)="onUpload($event,'Titulo',1)"></file-app>
                         </div>
                       </div>
                     </div>
@@ -351,8 +357,8 @@
                 </div>
                 <p-footer>
                   <div class="ui-dialog-buttonpane ui-helper-clearfix">
-                    <button type="button" pButton icon="fa-close" (click)="delete()" label="Eliminar" style="width:13%"></button>
-                    <button type="button" pButton icon="fa-check" (click)="crudEstudio()" label="Guardar" style="width:13%"></button>
+                    <button type="button" pButton icon="fa-close" (click)="crudEstudio(3)" label="Eliminar" style="width:13%" ></button>
+                    <button type="button" pButton icon="fa-check" (click)="crudEstudio(crudestudio)" label="Guardar" style="width:13%" ></button>
                   </div>
                 </p-footer>
               </p-dialog>

@@ -1,61 +1,64 @@
-﻿  <MenuComponent ></MenuComponent>
-<div class="page-content" style="height:100%; overflow:auto" >
-  <div class="page-header" style="margin-top:0px">
-    <div class="top-menu">
-      <div class="container">
-        <img class="NombreUni" />
-        <ul class="nav navbar-nav pull-right" style="margin-right:0px">
-          <li class="droddown dropdown-separator">
-            <span class="separator"></span>
-          </li>
-          <li dropdown class="dropdown dropdown-user dropdown-dark">
-            <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true" id="lblUsuario" dropdownToggle (click)="false">
-              <img alt="" class="img-circle user" id="imgUsuario" />
-              <span class="username username-hide-mobile">Usuario del sistema</span>
-            </a>
-            <ul class="dropdown-menu dropdown-menu-default">
+﻿  
+<block-ui>
+  <MenuComponent></MenuComponent>
+  <div class="page-content" style="height:100%; overflow:auto">
+    <div class="page-header" style="margin-top:0px">
+      <div class="top-menu">
+        <div class="container">
+          <img class="NombreUni" />
+          <ul class="nav navbar-nav pull-right" style="margin-right:0px">
+            <li class="droddown dropdown-separator">
+              <span class="separator"></span>
+            </li>
+            <li dropdown class="dropdown dropdown-user dropdown-dark">
+              <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true" id="lblUsuario" dropdownToggle (click)="false">
+                <img alt="" class="img-circle user" id="imgUsuario" />
+                <span class="username username-hide-mobile">Usuario del sistema</span>
+              </a>
+              <ul class="dropdown-menu dropdown-menu-default">
 
-              <li>
-                <a href="javascript:;">
-                  <i class="glyphicon glyphicon-user"></i> Mi perfil
-                </a>
-              </li>
-              <li class="divider">
-              </li>
-              <li>
-                <a href="">
-                  <i class="icon-key"></i> Salir
-                </a>
-              </li>
-            </ul>
-          </li>
-        </ul>
+                <li>
+                  <a href="javascript:;">
+                    <i class="glyphicon glyphicon-user"></i> Mi perfil
+                  </a>
+                </li>
+                <li class="divider">
+                </li>
+                <li>
+                  <a href="">
+                    <i class="icon-key"></i> Salir
+                  </a>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </div>
       </div>
+      <a href="javascript:;" class="menu-toggler"></a>
     </div>
-    <a href="javascript:;" class="menu-toggler"></a>
-  </div>
-  <div class='page-container' style="z-index:-1; ">
-    <div class='page-content' style="border: 1px solid blue; min-height: 565px;">
-      <div class='container'>
-        <div class="page-container">
-          <div class="page-head" style="background-color:white">
-            <div class="container">
-              <router-outlet></router-outlet>
-              <div>
-                <!--<button class="button" (click)="GetNombre()">traer Api</button>-->
+    <div class='page-container' style="z-index:-1; ">
+      <div class='page-content' style="border: 1px solid blue; min-height: 565px;">
+        <div class='container'>
+          <div class="page-container">
+            <div class="page-head" style="background-color:white">
+              <div class="container">
+                <router-outlet></router-outlet>
+                <div>
+                  <!--<button class="button" (click)="GetNombre()">traer Api</button>-->
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-  <div class="page-footer">
-    <div class="container">
-      2015 &copy; YMCA. Todos los derechos reservados.
+    <div class="page-footer">
+      <div class="container">
+        2015 &copy; YMCA. Todos los derechos reservados.
+      </div>
+    </div>
+    <div class="scroll-to-top">
+      <i class="icon-arrow-up"></i>
     </div>
   </div>
-  <div class="scroll-to-top">
-    <i class="icon-arrow-up"></i>
-  </div>
-</div>
+</block-ui>

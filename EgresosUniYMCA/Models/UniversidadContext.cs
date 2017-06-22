@@ -74,7 +74,9 @@ namespace EgresosUniYMCA.Models
         public virtual DbSet<DocenteDetalle> DocenteDetalle { get; set; }
         public virtual DbSet<DocenteDetalle1> DocenteDetalle1 { get; set; }
         public virtual DbSet<DocenteEstudio> DocenteEstudio { get; set; }
+        public virtual DbSet<DocenteEstudioDocumento> DocenteEstudioDocumento { get; set; }
         public virtual DbSet<DocentePublicacion> DocentePublicacion { get; set; }
+        public virtual DbSet<DocumentoTipo> DocumentoTipo { get; set; }
         public virtual DbSet<Empresa> Empresa { get; set; }
         public virtual DbSet<EmpresaDetalle> EmpresaDetalle { get; set; }
         public virtual DbSet<EntidadFederativa> EntidadFederativa { get; set; }
@@ -2202,20 +2204,50 @@ namespace EgresosUniYMCA.Models
 
             modelBuilder.Entity<DocenteEstudio>(entity =>
             {
-                entity.HasKey(e => new { e.DocenteId, e.Descripcion })
-                    .HasName("PK_DocenteAntecedente");
+                entity.HasKey(e => e.EstudioId)
+                    .HasName("PK_DocenteEstudio");
 
                 entity.ToTable("DocenteEstudio", "Egresos");
 
-                entity.Property(e => e.Descripcion).HasColumnType("varchar(200)");
+                entity.Property(e => e.Carrera).HasColumnType("varchar(200)");
 
-                entity.Property(e => e.FechaExpedicion).HasColumnType("date");
+                entity.Property(e => e.Fecha).HasColumnType("date");
 
-                entity.Property(e => e.FechaRegistro).HasColumnType("date");
+                entity.Property(e => e.Hora).HasColumnType("time(0)");
 
                 entity.Property(e => e.Institucion).HasColumnType("varchar(200)");
 
-                entity.Property(e => e.NoCedula).HasColumnType("varchar(50)");
+                entity.HasOne(d => d.Docente)
+                    .WithMany(p => p.DocenteEstudio)
+                    .HasForeignKey(d => d.DocenteId)
+                    .HasConstraintName("FK_DocenteEstudio_Docente");
+
+                entity.HasOne(d => d.OfertaEducativaTipo)
+                    .WithMany(p => p.DocenteEstudio)
+                    .HasForeignKey(d => d.OfertaEducativaTipoId)
+                    .HasConstraintName("FK_DocenteEstudio_OfertaEducativaTipo");
+            });
+
+            modelBuilder.Entity<DocenteEstudioDocumento>(entity =>
+            {
+                entity.HasKey(e => new { e.EstudioId, e.DocuentoTipoId })
+                    .HasName("PK_DocenteEstudioDocumento");
+
+                entity.ToTable("DocenteEstudioDocumento", "Egresos");
+
+                entity.Property(e => e.DocumentoUrl).HasColumnType("varchar(200)");
+
+                entity.HasOne(d => d.DocuentoTipo)
+                    .WithMany(p => p.DocenteEstudioDocumento)
+                    .HasForeignKey(d => d.DocuentoTipoId)
+                    .OnDelete(DeleteBehavior.Restrict)
+                    .HasConstraintName("FK_DocenteEstudioDocumento_DocumentoTipo");
+
+                entity.HasOne(d => d.Estudio)
+                    .WithMany(p => p.DocenteEstudioDocumento)
+                    .HasForeignKey(d => d.EstudioId)
+                    .OnDelete(DeleteBehavior.Restrict)
+                    .HasConstraintName("FK_DocenteEstudioDocumento_DocenteEstudio");
             });
 
             modelBuilder.Entity<DocentePublicacion>(entity =>
@@ -2238,6 +2270,13 @@ namespace EgresosUniYMCA.Models
                 entity.Property(e => e.NoVolumen).HasColumnType("varchar(50)");
 
                 entity.Property(e => e.Titulo).HasColumnType("varchar(200)");
+            });
+
+            modelBuilder.Entity<DocumentoTipo>(entity =>
+            {
+                entity.ToTable("DocumentoTipo", "Egresos");
+
+                entity.Property(e => e.Descripcion).HasColumnType("varchar(200)");
             });
 
             modelBuilder.Entity<Empresa>(entity =>

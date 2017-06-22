@@ -5,6 +5,7 @@ import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { AppRouting } from 'app/app.routing';
+
 import {
     ButtonModule,
     GrowlModule,
@@ -22,7 +23,7 @@ import { MenuComponent } from './component.menu/menu.component';
 import { HomeComponent } from './component.home/home.component';
 import { AltaDocenteComponent } from './Docente/AltaDocente.component';
 import { FileComponent } from './component.file/file.component';
-
+import { BlockUIModule } from 'ng-block-ui';
 @NgModule({
   declarations: [
       AppComponent,
@@ -36,6 +37,7 @@ import { FileComponent } from './component.file/file.component';
       HttpModule,
       CommonModule,
       FormsModule, 
+      BlockUIModule,
       ReactiveFormsModule,
       ButtonModule,
       GrowlModule,

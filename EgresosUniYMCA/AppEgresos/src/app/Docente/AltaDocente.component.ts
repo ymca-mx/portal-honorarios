@@ -1,8 +1,11 @@
 ﻿
-import { Component, Injectable, OnInit, ViewEncapsulation } from '@angular/core';
-import { Http, Headers, Response, RequestOptions } from '@angular/http';
+import { Component, Injectable, OnInit, ViewEncapsulation, ViewChild } from '@angular/core';
+import { Http, Headers, Response, RequestOptions, ResponseContentType } from '@angular/http';
 import { Validators, FormControl, FormGroup, FormBuilder } from '@angular/forms';
 import { ConfirmationService } from 'primeng/primeng';
+import { BlockUI, NgBlockUI } from 'ng-block-ui';
+
+
 
 import {
     MenuModule,
@@ -61,6 +64,9 @@ text-align: center;
 })
 
 export class AltaDocenteComponent implements OnInit {
+    @BlockUI() blockUI: NgBlockUI;
+    headers = new Headers({ 'Content-Type': 'application/json;charset=utf-8' });
+    options = new RequestOptions({ headers: this.headers });
     //tab/
     private items: MenuItem[];
     activeIndex: number = 0;
@@ -78,31 +84,25 @@ export class AltaDocenteComponent implements OnInit {
     public ofertasTipo: Catalogo[];
     nacional: SelectItem[];
     //valores inicales catalogos//
-    slcNacionalidad: string = '1';
-    slcLugarNacimineto: string = '9';
+    slcNacionalidad: string;
+    slcLugarNacimineto: string;
     sclEstado: string = '9';
-    sclEstadoF: string = '9';
     //formulario//
-    validarCoor: boolean = false;
-    validarRH: boolean = false;
-    checked: boolean = false;
+    v: Valida = { validarCoor: false, validarEst: false, validarInv: false, validarPub: false, validarTodo: false };
     es: any;
-    msgs: Message[] = [];
     tab1form: FormGroup;
     tab2form: FormGroup;
     tab3form: FormGroup;
     description: string;
-    docenteId: string;
-    d: string;
+    public docenteId: string = "1";
+    public estatusId: string = "2";
     ///estudios docente//
     displayDialog: boolean;
-    public Estudios: GradoAcademico[] = [];
-    public doc: Documento[] = [{ visible: false, nombre: '', directorio: '' }, { visible: false, nombre: '', directorio: '' }];
+    public Estudios: Estudio[] = [];
+    public doc: Documento[] = [{ visible: false, nombre: '', nombredb: '', file: '' }, { visible: false, nombredb: '', nombre: '', file: '' }];
     crudestudio: number;
 
-    constructor(private http: Http, private fb: FormBuilder, private confirmationService: ConfirmationService) {
-
-    }
+    constructor(private http: Http, private fb: FormBuilder, private confirmationService: ConfirmationService) { }
 
     ngOnInit() {
 
@@ -145,13 +145,15 @@ export class AltaDocenteComponent implements OnInit {
         }
         //formulario//
         this.tab1form = this.fb.group({
+            'docenteid': new FormControl(''),
+            'estatusid': new FormControl(''),
             xcoordinador: this.fb.group({
                 'nombre': new FormControl('', Validators.compose([Validators.required, Validators.minLength(3)])),
                 'paterno': new FormControl('', Validators.compose([Validators.required, Validators.minLength(3)])),
                 'materno': new FormControl('', Validators.compose([Validators.required, Validators.minLength(3)])),
                 'celular': new FormControl('', Validators.compose([Validators.required, Validators.minLength(10), Validators.maxLength(10)])),
                 'telcasa': new FormControl('', Validators.compose([Validators.required, Validators.minLength(8), Validators.maxLength(10)])),
-                'teloficina': new FormControl('', Validators.compose([Validators.minLength(8),Validators.maxLength(10)])),
+                'teloficina': new FormControl('', Validators.compose([Validators.minLength(8), Validators.maxLength(10)])),
                 'email': new FormControl('', this.emailValidator)
             }),
             'nacimiento': new FormControl('', Validators.required),
@@ -166,13 +168,12 @@ export class AltaDocenteComponent implements OnInit {
 
         this.tab2form = this.fb.group({
             estudios: this.fb.group({
+                'estudioid': new FormControl(''),
                 'institucion': new FormControl('', Validators.required),
                 'grado': new FormControl('', Validators.required),
                 'carrera': new FormControl('', Validators.required),
                 'cedula': new FormControl(''),
-                'ceduladoc': new FormControl(''),
                 'titulo': new FormControl(''),
-                'titulodoc': new FormControl(''),
             }),
             'expprofesional': new FormControl('', Validators.required),
             'expdocente': new FormControl('', Validators.required),
@@ -195,10 +196,26 @@ export class AltaDocenteComponent implements OnInit {
 
         this.CargarCatalogos();
     }
-    
+
+    activarTabs() {
+        if (this.activeIndex == 0) {
+            this.tab1 = true;
+            this.tab2 = false;
+            this.tab3 = false;
+        } else if (this.activeIndex == 1) {
+            this.tab1 = false;
+            this.tab2 = true;
+            this.tab3 = false;
+        }
+        else if (this.activeIndex == 2) {
+            this.tab1 = false;
+            this.tab2 = false;
+            this.tab3 = true;
+        }
+    }
 
     CargarCatalogos() {
-
+        this.blockUI.start('Cargando...');
         //nacionalidad//
         this.nacional = [];
         this.nacional.push({ label: '--Seleccionar--', value: '' });
@@ -208,7 +225,7 @@ export class AltaDocenteComponent implements OnInit {
         this.http.get('/api/Catalogos/AltaDocenteCatalogo').subscribe(result => {
             this.catalogos = result.json();
             //Lugar Nacimiento
-            this.nacimientoLugar = this.catalogos.entidades;
+            this.nacimientoLugar = [{ label: '--Seleccionar--', value: '' }];
             //Genero//
             this.genero = this.catalogos.generos;
             //Estado Civil
@@ -220,6 +237,7 @@ export class AltaDocenteComponent implements OnInit {
             this.municipio = this.catalogos.entidades;
             //ofetas tipo//
             this.ofertasTipo = this.catalogos.ofertasTipo;
+            this.blockUI.stop();
         });
 
 
@@ -252,12 +270,12 @@ export class AltaDocenteComponent implements OnInit {
 
         if (this.activeIndex < 3) {
             if (this.activeIndex == 0) {
-                //if (this.tab1form.controls['xcoordinador'].valid ) {
-                //    this.validarCoor = false; 
+                //if (this.tab1form.controls['xcoordinador'].valid) {
+                //     this.v.validarCoor = false; 
                 //    this.guardaDocente();
-                //} else {
-                //    this.validarCoor = true;
-                //    return false;
+                // } else {
+                //    this.v.validarCoor  = true;
+                //   return false;
                 //}
             } else if (this.activeIndex == 1) {
                 //if (!this.tab2form.valid) {
@@ -266,7 +284,7 @@ export class AltaDocenteComponent implements OnInit {
                 //}else{}
             }
 
-            
+
             this.activeIndex = this.activeIndex + 1;
             this.activarTabs();
         }// if (this.activeIndex < 4)
@@ -280,20 +298,29 @@ export class AltaDocenteComponent implements OnInit {
 
     }
 
-    guardaDocente()
-    {
-        if (this.confirmacion("Guardar Cambios", "¿Está seguro que desea guardar cambios?")) {
-            //build header options
-            let headers = new Headers({ 'Content-Type': 'application/json;charset=utf-8' });
-            let options = new RequestOptions({ headers: headers });
-            //build POST body
-            let body = JSON.stringify(this.tab1form.value);
-            this.http.post('/api/AltaDocente/AltaDocente', body, options).subscribe(result => {
-                this.docenteId = result.json();
-            });
-        } else { return false; }
-         
-       
+    guardaDocente() {
+        this.confirmationService.confirm({
+            message: "Guardar Cambios",
+            header: "¿Está seguro que desea guardar cambios?",
+            icon: 'fa fa-question-circle',
+            accept: () => {
+                this.blockUI.start('Guardando...');
+                this.tab1form.get('docenteid').setValue(this.docenteId);
+                this.tab1form.get('estatusid').setValue(this.estatusId);
+
+                let body = JSON.stringify(this.tab1form.value);
+                this.http.post('/api/AltaDocente/AltaDocente', body, this.options).subscribe(result => {
+                    let docente = result.json();
+                    this.docenteId = docente.docenteid;
+                    this.estatusId = docente.estatusid;
+                    this.blockUI.stop();
+                });
+            },
+            reject: () => {
+                return false;
+            }
+        });
+
     }
 
     addEstudio() {
@@ -306,36 +333,56 @@ export class AltaDocenteComponent implements OnInit {
         this.displayDialog = true;
     }
 
-    crudEstudio() {
-        let estudios = [...this.Estudios];
-        if (this.crudestudio == 1) {
-            let grado = this.ofertasTipo.filter(a => {
-                return a.value == this.tab2form.get('estudios').get("grado").value
+    crudEstudio(crud) {
+        let estudios: Estudio;
+        this.Estudios = null;
+        estudios = {
+            docenteid: this.docenteId,
+            estudioid: this.tab2form.get('estudios').get("estudioid").value,
+            institucion: this.tab2form.get('estudios').get("institucion").value,
+            gradoid: this.tab2form.get('estudios').get("grado").value,
+            grado: "",
+            carrera: this.tab2form.get('estudios').get("carrera").value,
+            cedula: this.tab2form.get('estudios').get("cedula").value == "true" ? "true" : "",
+            cedulanombre: this.doc[0].nombredb,
+            cedulaurl: "",
+            titulo: this.tab2form.get('estudios').get("titulo").value == "true" ? "true" : "",
+            titulonombre: this.doc[1].nombredb,
+            titulourl: "",
+            crud: crud
+        };
+        let body = JSON.stringify(estudios);
+        if (crud != 3) { 
+            if (this.tab2form.get('estudios').valid) {
+                this.blockUI.start('Guardando...');
+            this.v.validarEst = false;
+            this.http.post('/api/AltaDocente/Estudio', body, this.options).subscribe(result => {
+                this.Estudios = result.json();
+                this.saveFile(this.doc);
+                this.displayDialog = false;
             });
 
-            let estudioId = estudios.length + 1;
-            estudios.push({
-                estudioId: estudioId,
-                institucion: this.tab2form.get('estudios').get("institucion").value,
-                grado: grado.length > 0 ? grado[0].label : "",
-                carrera: this.tab2form.get('estudios').get("carrera").value,
-                cedula: this.tab2form.get('estudios').get("cedula").value == 'Si' ? 'Si' : 'NO',
-                ceduladoc: this.tab2form.get('estudios').get("ceduladoc").value,
-                titulo: this.tab2form.get('estudios').get("titulo").value == 'Si' ? 'Si' : 'NO',
-                titulodoc: this.tab2form.get('estudios').get("titulodoc").value
-            });
+        } else { this.v.validarEst = true; }
 
-            this.Estudios = estudios;
-            this.displayDialog = false;
-        } else if (this.crudestudio == 2) {
-
-        } else if (this.crudestudio == 3) {
-
-        }
+        } else if (crud == 3) {
+            this.blockUI.start('Guardando...');
+                this.v.validarEst = false;
+                this.http.post('/api/AltaDocente/Estudio', body, this.options).subscribe(result => {
+                    this.Estudios = result.json();
+                    this.displayDialog = false;
+                    this.blockUI.stop();
+                });
+            }
+        
 
     }
 
-    editarEstudio(estudio: GradoAcademico) {
+    openFile(url: any) {
+
+        window.open(url, "_blank");
+    }
+
+    editarEstudio(estudio: Estudio) {
         //limpiar formulario estudios//
         this.tab2form.get('estudios').reset();
         this.doc[0].visible = false;
@@ -344,38 +391,20 @@ export class AltaDocenteComponent implements OnInit {
         let grado = this.ofertasTipo.filter(a => {
             return a.label == estudio.grado
         });
+        this.tab2form.get('estudios').get("estudioid").setValue(estudio.estudioid);
         this.tab2form.get('estudios').get("institucion").setValue(estudio.institucion);
         this.tab2form.get('estudios').get("grado").setValue(grado[0].value);
         this.tab2form.get('estudios').get("carrera").setValue(estudio.carrera);
-        this.tab2form.get('estudios').get("cedula").setValue(estudio.cedula == 'Si' ? 'Si' : '');
-        this.tab2form.get('estudios').get("ceduladoc").setValue(estudio.ceduladoc);
-        this.tab2form.get('estudios').get("titulo").setValue(estudio.titulo == 'Si' ? 'Si' : '');
-        this.tab2form.get('estudios').get("titulodoc").setValue(estudio.titulodoc);
-        if (estudio.ceduladoc != null) {
-            this.doc[0] = { nombre: estudio.ceduladoc, visible: true, directorio: '' };
+        this.tab2form.get('estudios').get("cedula").setValue(estudio.cedula == 'true' ? 'Si' : '');
+        this.tab2form.get('estudios').get("titulo").setValue(estudio.titulo == 'true' ? 'Si' : '');
+        if (estudio.cedulanombre != null) {
+            this.doc[0] = { nombre: estudio.cedulanombre, nombredb: '', visible: true, file: '' };
         }
-        if (estudio.titulodoc != null) {
-            this.doc[1] = { nombre: estudio.titulodoc, visible: true, directorio: '' };
+        if (estudio.titulonombre != null) {
+            this.doc[1] = { nombre: estudio.titulonombre, nombredb: '', visible: true, file: '' };
         }
         this.crudestudio = 2;
         this.displayDialog = true;
-    }
-
-    activarTabs() {
-        if (this.activeIndex == 0) {
-            this.tab1 = true;
-            this.tab2 = false;
-            this.tab3 = false;
-        } else if (this.activeIndex == 1) {
-            this.tab1 = false;
-            this.tab2 = true;
-            this.tab3 = false;
-        }
-        else if (this.activeIndex == 2) {
-            this.tab1 = false;
-            this.tab2 = false;
-            this.tab3 = true;
-        }
     }
 
     //valida correo electronico//
@@ -387,52 +416,61 @@ export class AltaDocenteComponent implements OnInit {
         }
     }
 
-    confirmacion(header, message) {
-        this.confirmationService.confirm({
-            message: message,
-            header: header,
-            icon: 'fa fa-question-circle',
-            accept: () => {
-                return true;
-            },
-            reject: () => {
-                return false;
-            }
-        });
-    }
-
     //cargar archivo//
-    onUpload(file: any, formulario: string, componente: string, n: number) {
+    onUpload(fileInput: any, componente: string, n: number) {
+        let file = fileInput.event != "" ? fileInput.event.target.files[0] : undefined;
         if (file != undefined) {
-            this.tab2form.get(formulario).get(componente).setValue(file.nombre);
-            this.doc[n] = { nombre: file.nombre, visible: true, directorio: '' };
+            let nombredb = componente + "G" + this.tab2form.get('estudios').get("grado").value + "D" + this.docenteId;
+            this.doc[n] = { nombre: file.name, nombredb: nombredb, visible: true, file: file };
         } else {
-            this.tab2form.get(formulario).get(componente).setValue("");
-            this.doc[n] = { nombre: file.nombre, visible: false, directorio: '' };
+            this.doc[n] = { nombre: '', nombredb: '', visible: false, file: '' };
         }
     }
 
-    
+    saveFile(doc: any) {
+        let input = new FormData();
+        for (var i = 0; i < doc.length; i++) {
+            input.append("Files", doc[i].file, doc[i].nombredb);
+        }
+
+        return this.http.post("/api/AltaDocente/GuardarAchivo", input).subscribe(res => {
+            console.log(res);
+            this.blockUI.stop();
+        });;
+
+    }
 }
 
 
-export interface GradoAcademico {
-    estudioId;
+export interface Estudio {
+    docenteid;
+    estudioid;
     institucion;
+    gradoid;
     grado;
     carrera;
     cedula;
-    ceduladoc?;
+    cedulanombre?;
+    cedulaurl;
     titulo;
-    titulodoc?;
+    titulonombre?;
+    titulourl;
+    crud;
 }
 export interface Catalogo {
     value;
     label;
 };
 export interface Documento {
-    visible;
-    nombre;
-    directorio;
+    visible: boolean;
+    nombre: string;
+    nombredb: String;
+    file;
 };
-
+export interface Valida {
+    validarCoor: boolean;
+    validarEst: boolean;
+    validarPub: boolean;
+    validarInv: boolean;
+    validarTodo: boolean;
+}
