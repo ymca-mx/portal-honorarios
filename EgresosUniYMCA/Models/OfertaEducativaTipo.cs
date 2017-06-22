@@ -8,6 +8,7 @@ namespace EgresosUniYMCA.Models
         public OfertaEducativaTipo()
         {
             CuotaIncremento = new HashSet<CuotaIncremento>();
+            DocenteEstudio = new HashSet<DocenteEstudio>();
             OfertaEducativa = new HashSet<OfertaEducativa>();
             OfertaEducativaPlan = new HashSet<OfertaEducativaPlan>();
             PeriodoAnticipado = new HashSet<PeriodoAnticipado>();
@@ -19,6 +20,7 @@ namespace EgresosUniYMCA.Models
         public string Descripcion { get; set; }
 
         public virtual ICollection<CuotaIncremento> CuotaIncremento { get; set; }
+        public virtual ICollection<DocenteEstudio> DocenteEstudio { get; set; }
         public virtual ICollection<OfertaEducativa> OfertaEducativa { get; set; }
         public virtual ICollection<OfertaEducativaPlan> OfertaEducativaPlan { get; set; }
         public virtual ICollection<PeriodoAnticipado> PeriodoAnticipado { get; set; }
