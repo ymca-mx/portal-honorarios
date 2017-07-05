@@ -1,662 +1,211 @@
-﻿<div class="container-fluid">
-  <div class="ui-md-12">
-
-    <h1 style="color:green;">Alta Docente</h1>
-
-    <p-confirmDialog width="425"></p-confirmDialog>
-
-    <div class="ui-md-12" style="margin:30px 0px">
-      <p-steps [model]="items" [(activeIndex)]="activeIndex" styleClass="steps-custom">
-      </p-steps>
-    </div>
-
-
-
-    <div class="ui-md-12">
-      <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid">
-        
-        <div class="ui-md-3" *ngIf="docenteId!=''">
-          <div class="ui-grid-row">
-              <h4 style="color:grey;"> Docente </h4>
-            <div class="ui-md-5">
-              <input type="text" [(ngModel)]="docenteId" pInputText readonly >
-            </div>
-            </div>
-        </div>
-
-        <p-tabPanel [selected]="tab1" style="border:0px solid !important">
-          <form [formGroup]="tab1form">
-            <!--datos personales-->
-            <p-panel header="Datos Personales">
-
-              <div class="ui-grid-row">
-
-                <div class="ui-md-6">
-                  <div class="ui-grid-row" formGroupName="xcoordinador">
-                    <div class="ui-md-10">
-                      Nombre
-                      <input type="text" pInputText formControlName="nombre" />
-                    </div>
-                    <div class="ui-md-2">
-                      <br />
-                      <div class="ui-message ui-messages-error ui-corner-all " *ngIf="!tab1form.get('xcoordinador').get('nombre').valid&&v.validarCoor">
-                        <i class="fa fa-close"></i>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="ui-grid-row" formGroupName="xcoordinador">
-                    <div class="ui-md-10">
-                      Apellido Paterno
-                      <input type="text" pInputText formControlName="paterno" />
-                    </div>
-                    <div class="ui-md-2">
-                      <br />
-                      <div class="ui-message ui-messages-error ui-corner-all " *ngIf="!tab1form.get('xcoordinador').get('paterno').valid&&v.validarCoor">
-                        <i class="fa fa-close"></i>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="ui-grid-row" formGroupName="xcoordinador">
-                    <div class="ui-md-10">
-                      Apellido Materno
-                      <input type="text" pInputText formControlName="materno" />
-                    </div>
-                    <div class="ui-md-2">
-                      <br />
-                      <div class="ui-message ui-messages-error ui-corner-all " *ngIf="!tab1form.get('xcoordinador').get('materno').valid&&v.validarCoor">
-                        <i class="fa fa-close"></i>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="ui-grid-row" re>
-                    <div class="ui-md-10">
-                      Nacionalidad
-                      <p-dropdown   [options]="nacional" formControlName="nacionalidad" [autoWidth]="false" (onChange)="ChangeNacionalidad()" [(ngModel)]="slcNacionalidad"></p-dropdown>
-                    </div>
-                    <div class="ui-md-2">
-                      <br />
-                      <div class="ui-message ui-messages-error ui-corner-all " *ngIf="!tab1form.get('nacionalidad').valid&&validar">
-                        <i class="fa fa-close"></i>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="ui-grid-row">
-                    <div class="ui-md-10">
-                      Lugar de Nacimiento
-                      <p-dropdown [options]="nacimientoLugar" formControlName="lugarnacimiento" [autoWidth]="false" [(ngModel)]="slcLugarNacimineto"></p-dropdown>
-                    </div>
-                    <div class="ui-md-2">
-                      <br />
-                      <div class="ui-message ui-messages-error ui-corner-all " *ngIf="!tab1form.get('lugarnacimiento').valid&&validar">
-                        <i class="fa fa-close"></i>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="ui-md-6">
-                  <div class="ui-grid-row" *ngIf="slcNacionalidad==2">
-                    <div class="ui-md-10">
-                      Numero de Migracion
-                      <input type="text" pInputText formControlName="nomigracion" />
-                    </div>
-                    <div class="ui-md-2">
-                      <br />
-                      <div class="ui-message ui-messages-error ui-corner-all " *ngIf="!tab1form.get('nomigracion').valid&&validar">
-                        <i class="fa fa-close"></i>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="ui-grid-row" >
-                    <div class="ui-md-6">
-                      Fecha de Nacimiento
-                      <p-calendar  [(ngModel)]="date1" [showIcon]="true" formControlName="nacimiento" [locale]="es" dateFormat="dd/mm/yy"></p-calendar>
-                    </div>
-                    <div class="ui-md-2">
-                      <br />
-                      <div class="ui-message ui-messages-error ui-corner-all " *ngIf="!tab1form.get('nacimiento').valid&&validar">
-                        <i class="fa fa-close"></i>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="ui-grid-row">
-                    <div class="ui-md-10">
-                      CURP
-                      <input  type="text" pInputText formControlName="curp"  />
-                    </div>
-                    <div class="ui-md-2">
-                      <br />
-                      <div class="ui-message ui-messages-error ui-corner-all " *ngIf="!tab1form.get('curp').valid&&validar">
-                        <i class="fa fa-close"></i>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="ui-grid-row">
-                    <div class="ui-md-10">
-                      Genero
-                      <p-dropdown [options]="genero" formControlName="genero" [autoWidth]="false"></p-dropdown>
-                    </div>
-                    <div class="ui-md-2">
-                      <br />
-                      <div class="ui-message ui-messages-error ui-corner-all " *ngIf="!tab1form.get('genero').valid&&validar">
-                        <i class="fa fa-close"></i>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="ui-grid-row">
-                    <div class="ui-md-10">
-                      Estado Civil
-                      <p-dropdown [options]="estadoCivil" formControlName="estadocivil" [autoWidth]="false"></p-dropdown>
-                    </div>
-                    <div class="ui-md-2">
-                      <br />
-                      <div class="ui-message ui-messages-error ui-corner-all " *ngIf="!tab1form.get('estadocivil').valid&&validar">
-                        <i class="fa fa-close"></i>
-                      </div>
-                    </div>
-                  </div>
-
-                </div>
-
-              </div>
-
-            </p-panel>
-
-            <!--Datos de Contacto-->
-            <p-panel header="Datos de Contacto">
-
-              <div class="ui-grid-row">
-
-                <div class="ui-md-6" formGroupName="xcoordinador">
-                  <div class="ui-grid-row">
-                    <div class="ui-md-10">
-                      Telefono Celular
-                      <input type="text" onKeypress="if (event.keyCode < 48 || event.keyCode > 57) event.returnValue = false;" pInputText formControlName="celular" />
-                    </div>
-                    <div class="ui-md-2">
-                      <br />
-                      <div class="ui-message ui-messages-error ui-corner-all " *ngIf="!tab1form.get('xcoordinador').get('celular').valid&&v.validarCoor">
-                        <i class="fa fa-close"></i>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="ui-grid-row">
-                    <div class="ui-md-10">
-                      Telefono Casa
-                      <input type="text" onKeypress="if (event.keyCode < 48 || event.keyCode > 57) event.returnValue = false;" pInputText formControlName="telcasa" />
-                    </div>
-                    <div class="ui-md-2">
-                      <br />
-                      <div class="ui-message ui-messages-error ui-corner-all " *ngIf="!tab1form.get('xcoordinador').get('telcasa').valid&&v.validarCoor">
-                        <i class="fa fa-close"></i>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="ui-grid-row">
-                    <div class="ui-md-10">
-                      Telefono Oficina
-                      <input type="text" onKeypress="if (event.keyCode < 48 || event.keyCode > 57) event.returnValue = false;" pInputText formControlName="teloficina" />
-                    </div>
-                    <div class="ui-md-2">
-                      <br />
-                      <div class="ui-message ui-messages-error ui-corner-all " *ngIf="!tab1form.get('xcoordinador').get('teloficina').valid&&v.validarCoor">
-                        <i class="fa fa-close"></i>
-                      </div>
-                    </div>
-                  </div>
-
-                </div>
-
-                <div class="ui-md-6">
-                  <div class="ui-grid-row" formGroupName="xcoordinador">
-                    <div class="ui-md-10">
-                      Email
-                      <input type="text" pInputText formControlName="email" />
-                    </div>
-                    <div class="ui-md-2">
-                      <br />
-                      <div class="ui-message ui-messages-error ui-corner-all " *ngIf="!tab1form.get('xcoordinador').get('email').valid&&v.validarCoor">
-                        <i class="fa fa-close"></i>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="ui-grid-row">
-                    <div class="ui-md-10">
-                      Email Dominio Universidad
-                      <input type="text" pInputText formControlName="emailuni" />
-                    </div>
-                    <div class="ui-md-2">
-                      <br />
-                      <div class="ui-message ui-messages-error ui-corner-all " *ngIf="!tab1form.get('emailuni').valid&&validar">
-                        <i class="fa fa-close"></i>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </p-panel>
-
-
-          </form>
-        </p-tabPanel>
-
-        <p-tabPanel [selected]="tab2" style="border:0px solid !important">
-          <form [formGroup]="tab2form">
-            <!--Formación Académica  -->
-            <p-panel header="Formación Académica ">
-
-              <!--tabla estudios-->
-              <p-dataTable [value]="Estudios">
-
-                <p-headerColumnGroup>
-                  <p-row>
-                    <p-column header="Institución" rowspan="3"></p-column>
-                    <p-column header="Grado Academico" rowspan="3"></p-column>
-                    <p-column header="Carrera" rowspan="3"></p-column>
-                    <p-column header="Documentos" colspan="2"></p-column>
-                    <p-column header="Modificar" rowspan="3"></p-column>
-                  </p-row>
-                  <p-row>
-                    <p-column header="Cedula" colspan="1"></p-column>
-                    <p-column header="Titulo" colspan="1"></p-column>
-                  </p-row>
-                </p-headerColumnGroup>
-
-                <p-column field="institucion"></p-column>
-                <p-column field="grado"></p-column>
-                <p-column field="carrera"></p-column>
-                <p-column field="cedula" [style]="{'text-align':'center'}" >
-                  <ng-template let-data="rowData" pTemplate="body">
-                    {{data.cedula}}  <a style="color:blue" (click)="openFile(data.cedulaurl)" *ngIf="data.cedulaurl != null"  > /{{data.cedulanombre}}</a>
-
-</ng-template>
-                </p-column>
-                <p-column field="titulo"  [style]="{'text-align':'center'}">
-                  <ng-template let-data="rowData"  pTemplate="body">
-                   {{data.titulo}}  <a style="color:blue" (click)="openFile(data.titulourl)" *ngIf="data.titulourl != null" > /{{data.titulonombre}}</a>
-                  </ng-template>
-                </p-column>
-                <p-column field="modificar" >
-                  <ng-template let-estudio="rowData" pTemplate="body">
-                    <button type="button" pButton (click)="editarEstudio(estudio)" icon="fa-refresh"></button>
-                  </ng-template>
-                </p-column>
-                <p-footer><div class="ui-helper-clearfix" style="width:10%"><button type="button" pButton icon="fa-plus" style="float:left" (click)="addEstudio()" label="Agregar"></button></div></p-footer>
-              </p-dataTable>
-
-              <!--dialog estudios-->
-              <p-dialog header="Estudios Docente" [(visible)]="displayDialog" [responsive]="true" showEffect="fade" [modal]="true" width="800">
-                <div class="ui-grid ui-grid-responsive ui-fluid">
-
-                  <div class="ui-grid-row" formGroupName="estudios">
-
-                    <div class="ui-md-8">
-                      <div class="ui-grid-row">
-                        <div class="ui-md-10">
-                          Institución
-                          <input type="text" pInputText formControlName="institucion" />
-                        </div>
-                        <div class="ui-md-2">
-                          <br />
-                          <div class="ui-message ui-messages-error ui-corner-all " *ngIf="!tab2form.get('estudios').get('institucion').valid&&v.validarEst">
-                            <i class="fa fa-close"></i>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="ui-grid-row">
-                        <div class="ui-md-10">
-                          Grado Academico
-                          <p-dropdown [options]="ofertasTipo" formControlName="grado" [autoWidth]="false"></p-dropdown>
-                        </div>
-                        <div class="ui-md-2">
-                          <br />
-                          <div class="ui-message ui-messages-error ui-corner-all " *ngIf="!tab2form.get('estudios').get('grado').valid&&v.validarEst">
-                            <i class="fa fa-close"></i>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="ui-grid-row">
-                        <div class="ui-md-10">
-                          Carrera
-                          <input type="text" pInputText formControlName="carrera" />
-                        </div>
-                        <div class="ui-md-2">
-                          <br />
-                          <div class="ui-message ui-messages-error ui-corner-all " *ngIf="!tab2form.get('estudios').get('carrera').valid&&v.validarEst">
-                            <i class="fa fa-close"></i>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div class="ui-md-4">
-                      Documentos
-                      <!--cedula-->
-                      <div class="ui-grid-row">
-                        <div class="ui-md-5">
-                          <p-checkbox name="group1" value="true" label="Cedula" formControlName="cedula"></p-checkbox>
-                        </div>
-                        <div class="ui-md-7">
-                          <file-app [visible]="doc[0].visible"  (Documento)="onUpload($event,'Cedula',0)"></file-app>
-                        </div>
-                      </div>
-                      <!--Titulo-->
-                      <div class="ui-grid-row">
-                        <div class="ui-md-5">
-                          <p-checkbox name="group1" value="true" label="Titulo" formControlName="titulo"></p-checkbox>
-                        </div>
-                        <div class="ui-md-7">
-                          <file-app [visible]="doc[1].visible"  (Documento)="onUpload($event,'Titulo',1)"></file-app>
-                        </div>
-                      </div>
-                    </div>
-
-                  </div>
-
-                </div>
-                <p-footer>
-                  <div class="ui-dialog-buttonpane ui-helper-clearfix">
-                    <button type="button" pButton icon="fa-close" (click)="crudEstudio(3)" label="Eliminar" style="width:13%" ></button>
-                    <button type="button" pButton icon="fa-check" (click)="crudEstudio(crudestudio)" label="Guardar" style="width:13%" ></button>
-                  </div>
-                </p-footer>
-              </p-dialog>
-
-            </p-panel>
-            <!--Experiencia -->
-            <p-panel header="Experiencia">
-
-              <div class="ui-grid-row">
-
-                <div class="ui-md-6">
-                  <div class="ui-grid-row">
-                    <div class="ui-md-10">
-                      Años de  Experiencia Profesional
-                      <input type="text" pInputText formControlName="expprofesional" />
-                    </div>
-                    <div class="ui-md-2">
-                      <br />
-                      <div class="ui-message ui-messages-error ui-corner-all " *ngIf="!tab2form.get('expprofesional').valid&&validar">
-                        <i class="fa fa-close"></i>
-                      </div>
-                    </div>
-                  </div>
-
-                </div>
-
-                <div class="ui-md-6">
-                  <div class="ui-grid-row">
-                    <div class="ui-md-10">
-                      Años de  Experiencia como docente
-                      <input type="text" pInputText formControlName="expdocente" />
-                    </div>
-                    <div class="ui-md-2">
-                      <br />
-                      <div class="ui-message ui-messages-error ui-corner-all " *ngIf="!tab2form.get('expdocente').valid&&validar">
-                        <i class="fa fa-close"></i>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-              </div>
-
-            </p-panel>
-            <!--Publicaciones  -->
-            <p-panel header="Publicaciones ">
-
-              <div class="ui-grid-row">
-
-                <div class="ui-md-6">
-                  <div class="ui-grid-row">
-                    <div class="ui-md-10">
-                      Tipo de publicación
-                      <input type="text" pInputText formControlName="tipopublicacion" />
-                    </div>
-                    <div class="ui-md-2">
-                      <br />
-                      <div class="ui-message ui-messages-error ui-corner-all " *ngIf="!tab2form.get('tipopublicacion').valid&&validar">
-                        <i class="fa fa-close"></i>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="ui-md-6">
-
-                </div>
-
-              </div>
-
-            </p-panel>
-            <!--Investigaciones  -->
-            <p-panel header="Investigaciones ">
-
-              <div class="ui-grid-row">
-
-                <div class="ui-md-6">
-
-                </div>
-
-                <div class="ui-md-6">
-
-                </div>
-
-              </div>
-
-            </p-panel>
-            <!-- Disponibilidad -->
-            <p-panel header="Disponibilidad ">
-
-              <div class="ui-grid-row">
-
-                <div class="ui-md-6">
-
-                </div>
-
-                <div class="ui-md-6">
-
-                </div>
-
-              </div>
-
-            </p-panel>
-          </form>
-        </p-tabPanel>
-
-        <p-tabPanel [selected]="tab3" style="border:0px solid !important">
-          <form [formGroup]="tab3form">
-
-            <!--Domicilio -->
-            <p-panel header="Domicilio">
-
-              <div class="ui-grid-row">
-
-                <div class="ui-md-6">
-                  <div class="ui-grid-row">
-                    <div class="ui-md-10">
-                      Calle
-                      <input type="text" pInputText formControlName="calle" />
-                    </div>
-                    <div class="ui-md-2">
-                      <br />
-                      <div class="ui-message ui-messages-error ui-corner-all " *ngIf="!tab3form.controls['calle'].valid&&(tab3form.controls['calle'].dirty||validar)">
-                        <i class="fa fa-close"></i>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="ui-grid-row">
-                    <div class="ui-md-10">
-                      Número Exterior
-                      <input type="text" pInputText formControlName="exterior" />
-                    </div>
-                    <div class="ui-md-2">
-                      <br />
-                      <div class="ui-message ui-messages-error ui-corner-all " *ngIf="!tab3form.controls['exterior'].valid&&(tab3form.controls['exterior'].dirty||validar)">
-                        <i class="fa fa-close"></i>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="ui-grid-row">
-                    <div class="ui-md-10">
-                      Numero Interior
-                      <input type="text" pInputText formControlName="interior" />
-                    </div>
-                    <div class="ui-md-2">
-                      <br />
-                      <div class="ui-message ui-messages-error ui-corner-all " *ngIf="!tab3form.controls['interior'].valid&&(tab3form.controls['interior'].dirty||validar)">
-                        <i class="fa fa-close"></i>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="ui-grid-row">
-                    <div class="ui-md-5">
-                      Código Postal
-                      <input type="text" onKeypress="if (event.keyCode < 48 || event.keyCode > 57) event.returnValue = false;" pInputText formControlName="cp" />
-                    </div>
-                    <div class="ui-md-2">
-                      <br />
-                      <div class="ui-message ui-messages-error ui-corner-all " *ngIf="!tab3form.controls['cp'].valid&&(tab3form.controls['cp'].dirty||validar)">
-                        <i class="fa fa-close"></i>
-                      </div>
-                    </div>
-                  </div>
-
-                </div>
-
-                <div class="ui-md-6">
-                  <div class="ui-grid-row">
-                    <div class="ui-md-10">
-                      Colonia
-                      <input type="text" pInputText formControlName="colonia" />
-                    </div>
-                    <div class="ui-md-2">
-                      <br />
-                      <div class="ui-message ui-messages-error ui-corner-all " *ngIf="!tab3form.controls['colonia'].valid&&(tab3form.controls['colonia'].dirty||validar)">
-                        <i class="fa fa-close"></i>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="ui-grid-row">
-                    <div class="ui-md-10">
-                      Estado
-                      <p-dropdown [options]="estado" formControlName="estado" [autoWidth]="false" [(ngModel)]="sclEstado" (onChange)="ChangeEstado()"></p-dropdown>
-                    </div>
-                    <div class="ui-md-2">
-                      <br />
-                      <div class="ui-message ui-messages-error ui-corner-all " *ngIf="!tab3form.controls['estado'].valid&&(tab3form.controls['estado'].dirty||validar)">
-                        <i class="fa fa-close"></i>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="ui-grid-row">
-                    <div class="ui-md-10">
-                      Delegación | Municipio
-                      <p-dropdown [options]="municipio" formControlName="municipio" [autoWidth]="false"></p-dropdown>
-                    </div>
-                    <div class="ui-md-2">
-                      <br />
-                      <div class="ui-message ui-messages-error ui-corner-all " *ngIf="!tab3form.controls['municipio'].valid&&(tab3form.controls['municipio'].dirty||validar)">
-                        <i class="fa fa-close"></i>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-              </div>
-
-            </p-panel>
-
-            <!--datos fiscales-->
-            <p-panel header="Datos Fiscales">
-              <div class="ui-grid-row">
-                <div class="ui-md-6">
-                  <div class="ui-grid-row">
-                    <div class="ui-md-10">
-                      RFC
-                      <input type="text" pInputText formControlName="rfc" />
-                    </div>
-                    <div class="ui-md-2">
-                      <br />
-                      <div class="ui-message ui-messages-error ui-corner-all " *ngIf="!tab3form.controls['rfc'].valid&&(tab3form.controls['rfc'].dirty||validar)">
-                        <i class="fa fa-close"></i>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="ui-md-6">
-
-                  <div class="ui-grid-row">
-                    <div class="ui-md-10">
-                      Razón Social
-                      <input type="text" pInputText formControlName="razon" />
-                    </div>
-                    <div class="ui-md-2">
-                      <br />
-                      <div class="ui-message ui-messages-error ui-corner-all " *ngIf="!tab3form.controls['razon'].valid&&(tab3form.controls['razon'].dirty||validar)">
-                        <i class="fa fa-close"></i>
-                      </div>
-                    </div>
-                  </div>
-
-                </div>
-              </div>
-            </p-panel>
-
-            <!--datos bancarios-->
-            <p-panel header="Datos Bancarios">
-              <div class="ui-grid-row">
-                <div class="ui-md-6">
-                  <div class="ui-grid-row">
-                    <div class="ui-md-10">
-                      Numero de Cuenta (Santander)
-                      <input type="text" pInputText formControlName="nocuenta" />
-                    </div>
-                    <div class="ui-md-2">
-                      <br />
-                      <div class="ui-message ui-messages-error ui-corner-all " *ngIf="!tab3form.controls['nocuenta'].valid&&(tab3form.controls['nocuenta'].dirty||validar)">
-                        <i class="fa fa-close"></i>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="ui-md-6">
-
-                  <div class="ui-grid-row">
-                    <div class="ui-md-10">
-                      Clabe Interbancaria
-                      <input type="text" pInputText formControlName="clabe" />
-                    </div>
-                    <div class="ui-md-2">
-                      <br />
-                      <div class="ui-message ui-messages-error ui-corner-all " *ngIf="!tab3form.controls['clabe'].valid&&(tab3form.controls['clabe'].dirty||validar)">
-                        <i class="fa fa-close"></i>
-                      </div>
-                    </div>
-                  </div>
-
-                </div>
-              </div>
-            </p-panel>
-          </form>
-        </p-tabPanel>
-      </div>
-
-    </div>
-
-    <div class="ui-md-12 buttoncenter">
-      <hr />
-      <button pButton type="button" *ngIf="activeIndex>0" (click)="Regresar()" label="Regresar"></button>
-      <button pButton type="button" (click)="Continuar()" label="Continuar"></button>
-
-    </div>
-
-
-
-  </div>
-
-</div>
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using EgresosUniYMCA.Models;
+using EgresosUniYMCA.DTO;
+using Newtonsoft.Json.Linq;
+using System.IO;
+
+namespace EgresosUniYMCA.Controllers
+{
+    [Produces("application/json")]
+    [Route("api/AltaDocente")]
+    public class AltaDocenteController : Controller
+    {
+        private readonly UniversidadContext _db;
+        public AltaDocenteController(UniversidadContext db) { _db = db; }
+
+        [HttpPost("AltaDocente")]
+        public IActionResult AltaDocente([FromBody] DTODocente docente)
+        {
+            DTODocenteBasico docente1 = new DTODocenteBasico();
+            if (docente.docenteid == "")
+            {
+                _db.Docente.Add(new Docente
+                {
+                    Nombre = docente.xcoordinador.nombre,
+                    Paterno = docente.xcoordinador.paterno,
+                    Materno = docente.xcoordinador.materno,
+                    FechaAlta = DateTime.Now,
+                    HoraAlta = DateTime.Now.TimeOfDay,
+                    EstatusId = 2,
+                    DocenteDetalle = new DocenteDetalle
+                    {
+                        Celular = docente.xcoordinador.celular,
+                        TelefonoCasa = docente.xcoordinador.telcasa,
+                        TelefonoOficina = docente.xcoordinador.teloficina,
+                        Email = docente.xcoordinador.email
+                    }
+                });
+                _db.SaveChanges();
+                docente1.docenteid = _db.Docente.Local.FirstOrDefault().DocenteId;
+                docente1.estatusid = _db.Docente.Local.FirstOrDefault().EstatusId;
+
+            }
+            else
+            {
+                if (docente.estatusid == "2")
+                {
+                    docente1.docenteid = int.Parse(docente.docenteid);
+                    Docente docenteUpdate = _db.Docente.Where(a => a.DocenteId == docente1.docenteid).FirstOrDefault();
+                    //Actualizar docente//
+                    docenteUpdate.Nombre = docente.xcoordinador.nombre;
+                    docenteUpdate.Paterno = docente.xcoordinador.paterno;
+                    docenteUpdate.Materno = docente.xcoordinador.materno;
+                    DocenteDetalle docenteDetalleUpdate = _db.DocenteDetalle.Where(a => a.DocenteId == docente1.docenteid).FirstOrDefault();
+                    //Actualizar docente detalle//
+                    docenteDetalleUpdate.Celular = docente.xcoordinador.celular;
+                    docenteDetalleUpdate.TelefonoCasa = docente.xcoordinador.telcasa;
+                    docenteDetalleUpdate.TelefonoOficina = docente.xcoordinador.teloficina;
+                    docenteDetalleUpdate.Email = docente.xcoordinador.email;
+                    docente1.estatusid = docenteUpdate.EstatusId;
+                }
+
+
+                _db.SaveChanges();
+            }
+
+
+            return Ok(docente1);
+        }
+
+        [HttpPost("Estudio")]
+        public IActionResult Estudio([FromBody] DTOEstudio Estudio)
+        {
+
+            if (Estudio.crud == "1")
+            {
+                //_db.DocenteEstudio.Add(new DocenteEstudio
+                //{
+                //    DocenteId = int.Parse(Estudio.docenteid),
+                //    Institucion = Estudio.institucion,
+                //    OfertaEducativaTipoId = int.Parse(Estudio.gradoid),
+                //    Carrera = Estudio.carrera,
+                //    Cedula = Estudio.cedula == "true" ? true : false,
+                //    Titulo = Estudio.titulo == "true" ? true : false,
+                //    Fecha = DateTime.Now,
+                //    Hora = DateTime.Now.TimeOfDay,
+                //    EstatusId = 1
+                //});
+                //_db.SaveChanges();
+
+                //DocenteEstudio estudiodocente = _db.DocenteEstudio.Local.FirstOrDefault();
+                /////guardar url de documentos///
+                //if (Estudio.cedulanombre != "")
+                //{
+                //    _db.DocenteEstudioDocumento.Add(new DocenteEstudioDocumento
+                //    {
+                //        EstudioId = estudiodocente.EstudioId,
+                //        DocuentoTipoId = 1,
+                //        DocumentoUrl = "http://localhost/PortalEgresos/Documentos/" + Estudio.cedulanombre + ".pdf"
+                //    });
+                //}
+                //if (Estudio.titulonombre != "")
+                //{
+                //    _db.DocenteEstudioDocumento.Add(new DocenteEstudioDocumento
+                //    {
+                //        EstudioId = estudiodocente.EstudioId,
+                //        DocuentoTipoId = 2,
+                //        DocumentoUrl = "http://localhost/PortalEgresos/Documentos/" + Estudio.titulonombre + ".pdf"
+                //    });
+                //}
+                /////////
+                //_db.SaveChanges();
+            }
+            else if (Estudio.crud == "2")
+            {
+                DocenteEstudio estudioEditar = _db.DocenteEstudio.Where(a => a.EstudioId == int.Parse(Estudio.estudioid)).FirstOrDefault();
+                estudioEditar.Institucion = Estudio.institucion;
+                estudioEditar.OfertaEducativaTipoId = int.Parse(Estudio.gradoid);
+                estudioEditar.Carrera = Estudio.carrera;
+                estudioEditar.Cedula = Estudio.cedula == "true" ? true : false;
+                estudioEditar.Titulo = Estudio.titulo == "true" ? true : false;
+                estudioEditar.Fecha = DateTime.Now;
+                estudioEditar.Hora = DateTime.Now.TimeOfDay;
+                if (Estudio.cedulanombre != "")
+                {
+                    DocenteEstudioDocumento estudiodocumento = _db.DocenteEstudioDocumento.Where(a => a.EstudioId == int.Parse(Estudio.estudioid) && a.DocuentoTipoId == 1).FirstOrDefault();
+                    if (estudiodocumento != null)
+                    {
+                        estudiodocumento.DocumentoUrl = "http://localhost/PortalEgresos/Documentos/" + Estudio.cedulanombre + ".pdf";
+                    }
+                    else
+                    {
+                        _db.DocenteEstudioDocumento.Add(new DocenteEstudioDocumento
+                        {
+                            EstudioId = int.Parse(Estudio.estudioid),
+                            DocuentoTipoId = 1,
+                            DocumentoUrl = "http://localhost/PortalEgresos/Documentos/" + Estudio.cedulanombre + ".pdf"
+                        });
+                    }
+                }
+                if (Estudio.titulonombre != "")
+                {
+                    DocenteEstudioDocumento estudiodocumento = _db.DocenteEstudioDocumento.Where(a => a.EstudioId == int.Parse(Estudio.estudioid) && a.DocuentoTipoId == 2).FirstOrDefault();
+                    if (estudiodocumento != null)
+                    {
+                        estudiodocumento.DocumentoUrl = "http://localhost/PortalEgresos/Documentos/" + Estudio.titulonombre + ".pdf";
+                    }
+                    else
+                    {
+                        _db.DocenteEstudioDocumento.Add(new DocenteEstudioDocumento
+                        {
+                            EstudioId = int.Parse(Estudio.estudioid),
+                            DocuentoTipoId = 2,
+                            DocumentoUrl = "http://localhost/PortalEgresos/Documentos/" + Estudio.titulonombre + ".pdf"
+                        });
+                    }
+                }
+                _db.SaveChanges();
+            }
+            else if (Estudio.crud == "3")
+            {
+                DocenteEstudio estudioEditar = _db.DocenteEstudio.Where(a => a.EstudioId == int.Parse(Estudio.estudioid)).FirstOrDefault();
+                estudioEditar.EstatusId = 2;
+                _db.SaveChanges();
+            }
+            
+            List<DTOEstudio> estudioDocente = _db.DocenteEstudio.Where(a => a.DocenteId == int.Parse(Estudio.docenteid) && a.EstatusId == 1)
+                                                                .Select(b => new DTOEstudio
+                                                                {
+                                                                    estudioid = b.EstudioId.ToString(),
+                                                                    docenteid = b.DocenteId.ToString(),
+                                                                    institucion = b.Institucion,
+                                                                    gradoid = b.OfertaEducativaTipoId.ToString(),
+                                                                    grado = b.OfertaEducativaTipo.Descripcion,
+                                                                    carrera = b.Carrera,
+                                                                    cedula = b.Cedula == true ? "Si" : "No",
+                                                                    cedulanombre = b.DocenteEstudioDocumento.Count(c => c.DocuentoTipoId == 1) > 0 ? "Archivo..." : null,
+                                                                    cedulaurl = b.DocenteEstudioDocumento.Where(c => c.DocuentoTipoId == 1).FirstOrDefault().DocumentoUrl,
+                                                                    titulo = b.Titulo == true ? "Si" : "No",
+                                                                    titulonombre = b.DocenteEstudioDocumento.Count(c => c.DocuentoTipoId == 2) > 0 ? "Archivo..." : null,
+                                                                    titulourl = b.DocenteEstudioDocumento.Where(e => e.DocuentoTipoId == 2).FirstOrDefault().DocumentoUrl
+                                                                })
+                                                                .ToList();
+
+            return Ok(estudioDocente);
+        }
+
+        [HttpPost("GuardarAchivo")]
+        public async Task<IActionResult> Upload(IList<IFormFile> files)
+        {
+
+            foreach (var file in files)
+            {
+
+                var filePath = Directory.GetCurrentDirectory() + "\\Documentos\\" + file.FileName + ".pdf";
+                using (var stream = new FileStream(filePath, FileMode.Create))
+                {
+                    await file.CopyToAsync(stream);
+                }
+
+            }
+
+
+            return Ok(true);
+        }
+    }
+}
