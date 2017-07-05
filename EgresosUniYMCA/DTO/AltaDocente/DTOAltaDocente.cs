@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -40,7 +40,7 @@ namespace EgresosUniYMCA.DTO
     public class DTOEstudio
     {
         public string docenteid { get; set; }
-        public string estudioId { get; set; }
+        public string estudioid { get; set; }
         public string institucion { get; set; }
         public string gradoid { get; set; }
         public string grado { get; set; }
