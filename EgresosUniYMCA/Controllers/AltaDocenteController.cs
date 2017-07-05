@@ -115,9 +115,9 @@ namespace EgresosUniYMCA.Controllers
                 /////////
                 //_db.SaveChanges();
             }
-            else if (Estudio.crud=="2")
+            else if (Estudio.crud == "2")
             {
-                DocenteEstudio estudioEditar = _db.DocenteEstudio.Where(a => a.EstudioId == int.Parse(Estudio.estudioId)).FirstOrDefault();
+                DocenteEstudio estudioEditar = _db.DocenteEstudio.Where(a => a.EstudioId == int.Parse(Estudio.estudioid)).FirstOrDefault();
                 estudioEditar.Institucion = Estudio.institucion;
                 estudioEditar.OfertaEducativaTipoId = int.Parse(Estudio.gradoid);
                 estudioEditar.Carrera = Estudio.carrera;
@@ -125,25 +125,64 @@ namespace EgresosUniYMCA.Controllers
                 estudioEditar.Titulo = Estudio.titulo == "true" ? true : false;
                 estudioEditar.Fecha = DateTime.Now;
                 estudioEditar.Hora = DateTime.Now.TimeOfDay;
+                if (Estudio.cedulanombre != "")
+                {
+                    DocenteEstudioDocumento estudiodocumento = _db.DocenteEstudioDocumento.Where(a => a.EstudioId == int.Parse(Estudio.estudioid) && a.DocuentoTipoId == 1).FirstOrDefault();
+                    if (estudiodocumento != null)
+                    {
+                        estudiodocumento.DocumentoUrl = "http://localhost/PortalEgresos/Documentos/" + Estudio.cedulanombre + ".pdf";
+                    }
+                    else
+                    {
+                        _db.DocenteEstudioDocumento.Add(new DocenteEstudioDocumento
+                        {
+                            EstudioId = int.Parse(Estudio.estudioid),
+                            DocuentoTipoId = 1,
+                            DocumentoUrl = "http://localhost/PortalEgresos/Documentos/" + Estudio.cedulanombre + ".pdf"
+                        });
+                    }
+                }
+                if (Estudio.titulonombre != "")
+                {
+                    DocenteEstudioDocumento estudiodocumento = _db.DocenteEstudioDocumento.Where(a => a.EstudioId == int.Parse(Estudio.estudioid) && a.DocuentoTipoId == 2).FirstOrDefault();
+                    if (estudiodocumento != null)
+                    {
+                        estudiodocumento.DocumentoUrl = "http://localhost/PortalEgresos/Documentos/" + Estudio.titulonombre + ".pdf";
+                    }
+                    else
+                    {
+                        _db.DocenteEstudioDocumento.Add(new DocenteEstudioDocumento
+                        {
+                            EstudioId = int.Parse(Estudio.estudioid),
+                            DocuentoTipoId = 2,
+                            DocumentoUrl = "http://localhost/PortalEgresos/Documentos/" + Estudio.titulonombre + ".pdf"
+                        });
+                    }
+                }
+                _db.SaveChanges();
             }
-
-
-
-            List<DTOEstudio> estudioDocente = _db.DocenteEstudio.Where(a=> a.DocenteId == int.Parse(Estudio.docenteid))
-                                                                .Select(b=> new DTOEstudio
+            else if (Estudio.crud == "3")
+            {
+                DocenteEstudio estudioEditar = _db.DocenteEstudio.Where(a => a.EstudioId == int.Parse(Estudio.estudioid)).FirstOrDefault();
+                estudioEditar.EstatusId = 2;
+                _db.SaveChanges();
+            }
+            
+            List<DTOEstudio> estudioDocente = _db.DocenteEstudio.Where(a => a.DocenteId == int.Parse(Estudio.docenteid) && a.EstatusId == 1)
+                                                                .Select(b => new DTOEstudio
                                                                 {
-                                                                    estudioId = b.EstudioId.ToString(),
+                                                                    estudioid = b.EstudioId.ToString(),
                                                                     docenteid = b.DocenteId.ToString(),
                                                                     institucion = b.Institucion,
                                                                     gradoid = b.OfertaEducativaTipoId.ToString(),
                                                                     grado = b.OfertaEducativaTipo.Descripcion,
                                                                     carrera = b.Carrera,
-                                                                    cedula = b.Cedula== true?"Si":"No",
-                                                                    cedulanombre = b.DocenteEstudioDocumento.Count(c => c.DocuentoTipoId == 1)>0?"Archivo...":null,
-                                                                    cedulaurl = b.DocenteEstudioDocumento.Where(c=> c.DocuentoTipoId==1).FirstOrDefault().DocumentoUrl,
-                                                                    titulo = b.Titulo==true?"Si":"No",
+                                                                    cedula = b.Cedula == true ? "Si" : "No",
+                                                                    cedulanombre = b.DocenteEstudioDocumento.Count(c => c.DocuentoTipoId == 1) > 0 ? "Archivo..." : null,
+                                                                    cedulaurl = b.DocenteEstudioDocumento.Where(c => c.DocuentoTipoId == 1).FirstOrDefault().DocumentoUrl,
+                                                                    titulo = b.Titulo == true ? "Si" : "No",
                                                                     titulonombre = b.DocenteEstudioDocumento.Count(c => c.DocuentoTipoId == 2) > 0 ? "Archivo..." : null,
-                                                                    titulourl = b.DocenteEstudioDocumento.Where(e=> e.DocuentoTipoId == 2 ) .FirstOrDefault().DocumentoUrl
+                                                                    titulourl = b.DocenteEstudioDocumento.Where(e => e.DocuentoTipoId == 2).FirstOrDefault().DocumentoUrl
                                                                 })
                                                                 .ToList();
 
@@ -156,16 +195,16 @@ namespace EgresosUniYMCA.Controllers
 
             foreach (var file in files)
             {
-                
-                var filePath = Directory.GetCurrentDirectory() + "\\Documentos\\" + file.FileName+".pdf" ;
-                    using (var stream = new FileStream(filePath, FileMode.Create))
-                    {
-                         await file.CopyToAsync(stream);
-                    }
-                    
+
+                var filePath = Directory.GetCurrentDirectory() + "\\Documentos\\" + file.FileName + ".pdf";
+                using (var stream = new FileStream(filePath, FileMode.Create))
+                {
+                    await file.CopyToAsync(stream);
+                }
+
             }
-                
-              
+
+
             return Ok(true);
         }
     }
