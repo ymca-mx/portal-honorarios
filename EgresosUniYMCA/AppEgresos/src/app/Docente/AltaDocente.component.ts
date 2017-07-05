@@ -1,5 +1,5 @@
-﻿
-import { Component, Injectable, OnInit, ViewEncapsulation, ViewChild } from '@angular/core';
+
+import { Component, Injectable, OnInit, ViewEncapsulation, ViewChild, ViewChildren } from '@angular/core';
 import { Http, Headers, Response, RequestOptions, ResponseContentType } from '@angular/http';
 import { Validators, FormControl, FormGroup, FormBuilder } from '@angular/forms';
 import { ConfirmationService } from 'primeng/primeng';
@@ -61,10 +61,13 @@ text-align: center;
     `],
     encapsulation: ViewEncapsulation.None,
     providers: [ConfirmationService]
+
 })
 
 export class AltaDocenteComponent implements OnInit {
+    @ViewChildren('foco') vc;
     @BlockUI() blockUI: NgBlockUI;
+
     headers = new Headers({ 'Content-Type': 'application/json;charset=utf-8' });
     options = new RequestOptions({ headers: this.headers });
     //tab/
@@ -277,11 +280,13 @@ export class AltaDocenteComponent implements OnInit {
                 //    this.v.validarCoor  = true;
                 //   return false;
                 //}
+                this.foco();
             } else if (this.activeIndex == 1) {
                 //if (!this.tab2form.valid) {
                 //    this.validar = true;
                 //    return false;
                 //}else{}
+                this.foco();
             }
 
 
@@ -289,6 +294,8 @@ export class AltaDocenteComponent implements OnInit {
             this.activarTabs();
         }// if (this.activeIndex < 4)
     }
+
+    foco() { this.vc.first.nativeElement.focus(); }
 
     Regresar() {
         if (this.activeIndex > 0) {
@@ -352,28 +359,28 @@ export class AltaDocenteComponent implements OnInit {
             crud: crud
         };
         let body = JSON.stringify(estudios);
-        if (crud != 3) { 
+        if (crud != 3) {
             if (this.tab2form.get('estudios').valid) {
                 this.blockUI.start('Guardando...');
-            this.v.validarEst = false;
-            this.http.post('/api/AltaDocente/Estudio', body, this.options).subscribe(result => {
-                this.Estudios = result.json();
-                this.saveFile(this.doc);
-                this.displayDialog = false;
-            });
-
-        } else { this.v.validarEst = true; }
-
-        } else if (crud == 3) {
-            this.blockUI.start('Guardando...');
                 this.v.validarEst = false;
                 this.http.post('/api/AltaDocente/Estudio', body, this.options).subscribe(result => {
                     this.Estudios = result.json();
+                    this.saveFile(this.doc);
                     this.displayDialog = false;
-                    this.blockUI.stop();
                 });
-            }
-        
+
+            } else { this.v.validarEst = true; }
+
+        } else if (crud == 3) {
+            this.blockUI.start('Guardando...');
+            this.v.validarEst = false;
+            this.http.post('/api/AltaDocente/Estudio', body, this.options).subscribe(result => {
+                this.Estudios = result.json();
+                this.displayDialog = false;
+                this.blockUI.stop();
+            });
+        }
+
 
     }
 
@@ -395,8 +402,8 @@ export class AltaDocenteComponent implements OnInit {
         this.tab2form.get('estudios').get("institucion").setValue(estudio.institucion);
         this.tab2form.get('estudios').get("grado").setValue(grado[0].value);
         this.tab2form.get('estudios').get("carrera").setValue(estudio.carrera);
-        this.tab2form.get('estudios').get("cedula").setValue(estudio.cedula == 'true' ? 'Si' : '');
-        this.tab2form.get('estudios').get("titulo").setValue(estudio.titulo == 'true' ? 'Si' : '');
+        this.tab2form.get('estudios').get("cedula").setValue(estudio.cedula == "Si" ? ['true']: '');
+        this.tab2form.get('estudios').get("titulo").setValue(estudio.titulo == "Si" ? ['true']: '');
         if (estudio.cedulanombre != null) {
             this.doc[0] = { nombre: estudio.cedulanombre, nombredb: '', visible: true, file: '' };
         }
