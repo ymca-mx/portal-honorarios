@@ -24,7 +24,7 @@ namespace EgresosUniYMCA.Controllers
                     new SubMenu
                     {
                         Descripcion="Alta Docentes",
-                        Direccion="AltaDocente"
+                        Direccion="docente/altadocente"
                     },
                     new SubMenu
                     {

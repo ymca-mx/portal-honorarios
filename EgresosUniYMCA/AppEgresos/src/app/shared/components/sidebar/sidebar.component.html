@@ -1,0 +1,39 @@
+﻿<nav class="sidebar" [ngClass]="{sidebarPushRight: isActive}">
+  <ul class="list-group">
+    <a routerLink="/home" [routerLinkActive]="['router-link-active']" class="list-group-item">
+      <img src="../../../../assets/images/uniymca.png" style="height:60px;width:55px;" />&nbsp; HOME
+    </a>
+    <div class="nested-menu">
+      <a *ngFor="let itemmenu of listMenu; let i = index;" class="list-group-item" (click)="addExpandClass('submenu'+ i)">
+        <span><i class="fa fa-ellipsis-v"></i>&nbsp; {{ itemmenu.titulo }}</span>
+
+        <li class="nested" [class.expand]="showMenu === 'submenu'+ i">
+          <ul class="submenu">
+            <li *ngFor="let subitem of  itemmenu.subMenus; let i2 = index;">
+              <a routerLink="/{{subitem.direccion}}"><span>{{ subitem.descripcion }}</span></a>
+            </li>
+          </ul>
+        </li>
+      </a>
+    </div>
+
+    <a [routerLink]="['/charts']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+      <i class="fa fa-fw fa-bar-chart-o"></i>&nbsp;{{ 'charts'  }}
+    </a>
+    <a [routerLink]="['/tables']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+      <i class="fa fa-fw fa-table"></i>&nbsp;{{ 'tables'}}
+    </a>
+    <a [routerLink]="['/forms']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+      <i class="fa fa-fw fa-edit"></i>&nbsp;{{ 'forms'}}
+    </a>
+    <a [routerLink]="['/bs-element']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+      <i class="fa fa-fw fa-desktop"></i>&nbsp;{{ 'boostrapElement'  }}
+    </a>
+    <a [routerLink]="['/grid']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+      <i class="fa fa-fw fa-wrench"></i>&nbsp;{{ 'boostrapGrid'  }}
+    </a>
+    <a [routerLink]="['/components']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+      <i class="fa fa-th-list"></i>&nbsp;{{ 'component'  }}
+    </a>
+  </ul>
+</nav>

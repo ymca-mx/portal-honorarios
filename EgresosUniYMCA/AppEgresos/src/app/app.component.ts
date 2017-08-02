@@ -1,14 +1,15 @@
-﻿import { Component } from '@angular/core';
-const imgprof = './img/default_user.jpg';
+import { Component } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+    selector: 'app-root',
+    templateUrl: './app.component.html',
+    styleUrls: ['./app.component.scss']
 })
-
-
 export class AppComponent {
-    title = 'app';
-
-    private RutaFoto = imgprof;// require('./img/default_user.jpg');
+    constructor(private translate: TranslateService) {
+        translate.addLangs(['en', 'fr', 'ur', 'es']);
+        translate.setDefaultLang('en');
+        const browserLang = translate.getBrowserLang();
+        translate.use(browserLang.match(/en|fr|ur|es/) ? browserLang : 'en');
+    }
 }

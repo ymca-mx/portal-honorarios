@@ -8,14 +8,16 @@
 
   <ItemGroup>
     <Compile Remove="AppEgresos\node_modules\**" />
+    <Compile Remove="AppEgresos\src\app\img\**" />
     <Content Remove="AppEgresos\node_modules\**" />
+    <Content Remove="AppEgresos\src\app\img\**" />
     <EmbeddedResource Remove="AppEgresos\node_modules\**" />
+    <EmbeddedResource Remove="AppEgresos\src\app\img\**" />
     <None Remove="AppEgresos\node_modules\**" />
+    <None Remove="AppEgresos\src\app\img\**" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="AppEgresos\src\app\img\" />
-    <Folder Include="AppEgresos\src\Plugins\" />
     <Folder Include="Documentos\" />
     <Folder Include="wwwroot\" />
   </ItemGroup>
@@ -36,6 +38,6 @@
   <ItemGroup>
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="1.0.0" />
   </ItemGroup>
-  <ProjectExtensions><VisualStudio><UserProperties /></VisualStudio></ProjectExtensions>
+  <ProjectExtensions><VisualStudio><UserProperties AppEgresos_4_1angular-cli_1json__JSONSchema="" /></VisualStudio></ProjectExtensions>
 
 </Project>

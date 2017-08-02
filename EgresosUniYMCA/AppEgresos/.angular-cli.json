@@ -9,7 +9,8 @@
       "outDir": "wwwroot",
       "assets": [
         "assets",
-        "favicon.ico"
+        "favicon.ico",
+        ".htaccess"
       ],
       "index": "index.html",
       "main": "main.ts",
@@ -19,18 +20,14 @@
       "testTsconfig": "tsconfig.spec.json",
       "prefix": "app",
       "styles": [
-        "../node_modules/bootstrap/dist/css/bootstrap.min.css",
-        "styles.css",
+        "../node_modules/font-awesome/css/font-awesome.css",
+        "styles/app.scss",
         "../node_modules/primeng/resources/themes/omega/theme.css",
         "../node_modules/font-awesome/css/font-awesome.min.css",
-        "../node_modules/primeng/resources/primeng.min.css",
-        "Plugins/Menu-Plug/nav-icon.css",
-        "Plugins/Menu-Plug/normalize.css",
-        "Plugins/Menu-Plug/style.css"
+        "../node_modules/primeng/resources/primeng.min.css"
       ],
       "scripts": [
-        "Plugins/Menu-Plug/Sliiide.js",
-        "Plugins/Menu-Plug/app-menu.js"
+        "../node_modules/chart.js/dist/Chart.js"
       ],
       "environmentSource": "environments/environment.ts",
       "environments": {
@@ -61,7 +58,7 @@
     }
   },
   "defaults": {
-    "styleExt": "css",
+    "styleExt": "scss",
     "component": {}
   }
 }
