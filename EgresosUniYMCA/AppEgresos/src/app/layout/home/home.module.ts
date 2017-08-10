@@ -5,7 +5,6 @@ import {
     NgbAlertModule
 } from '@ng-bootstrap/ng-bootstrap';
 
-
 import { HomeRoutingModule } from './home-routing.module';
 import { HomeComponent } from './home.component';
 import { StatModule } from '../../shared';

@@ -7,14 +7,25 @@
           <div>&nbsp;</div>
 
           <img src="../../assets/images/uniymca.png" width="80" class="logo" />
-          <form role="form" >
-              <div class="form-group col-md-8 push-md-2">
-                <input type="text" ng-model="name" class="form-control input-underline input-md " placeholder="Usuario">
-              </div>
-              <div class="form-group col-md-8 push-md-2">
-                <input type="password" class="form-control input-underline input-md" id="" placeholder="Password">
-              </div>
-            <a class="btn rounded-btn" [routerLink]="['/home']" (click)="onLoggedin()"> Entrar </a>
+
+          <form #f="ngForm" novalidate (ngSubmit)="login(f)" role="form">
+            <div class="form-group  col-md-8 push-md-2">
+              <input id="user" type="text" required name="user" [ngModel]="credentials.user" #user="ngModel" tmFocus  class="form-control  input-underline input-md"
+                     placeholder="Usuario">
+              <small [hidden]="user.valid || (user.pristine && !submitted)" class="text-danger">
+                Usuario es un campo obligatorio.
+              </small>
+            </div>
+            <div class="form-group  col-md-8 push-md-2">
+              <input id="password" type="password" required name="password" class="form-control  input-underline input-md" placeholder="Password" ngModel>
+            </div>
+            <div class="form-group" >
+              <button type="submit" class="btn rounded-btn"  [disabled]="f.invalid || isRequesting">Entrar</button>
+              <app-spinner [isRunning]="isRequesting" ></app-spinner>
+            </div>
+            <div *ngIf="errors" class="alert1 alert-danger" role="alert">
+              <strong>Oops!</strong> {{errors}}
+            </div>
           </form>
           <div>&nbsp;</div>
         </div>

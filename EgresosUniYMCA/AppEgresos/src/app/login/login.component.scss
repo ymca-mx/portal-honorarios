@@ -45,7 +45,7 @@
     color: #FFF;
     border-radius: 0;
     font-size: 25px;
-    text-align:center;
+    text-align: center;
   }
 
   .input-underline:focus {
@@ -119,6 +119,14 @@
     -webkit-border-radius: 5%;
     border-radius: 5%;
   }
+
+}
+
+.alert1 {
+  padding: 0rem 0rem;
+  margin-bottom: 1rem;
+  border: 1px solid transparent;
+  border-radius: 0.25rem;
 }
 
 #footer {

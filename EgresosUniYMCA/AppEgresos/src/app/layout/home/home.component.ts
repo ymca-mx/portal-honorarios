@@ -1,5 +1,6 @@
 ﻿import { Component, OnInit } from '@angular/core';
 import { routerTransition } from '../../router.animations';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
     selector: 'app-home',
@@ -10,7 +11,7 @@ export class HomeComponent implements OnInit {
     public alerts: Array<any> = [];
     public sliders: Array<any> = [];
 
-    constructor() {
+    constructor(private route: ActivatedRoute) {
         this.sliders.push({
             imagePath: 'assets/images/slider1.jpg',
             label: 'First slide label',
@@ -43,6 +44,11 @@ export class HomeComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.route
+            .queryParams
+            .subscribe(params => {
+                let user = params['user'];
+            });
     }
 
     public closeAlert(alert: any) {

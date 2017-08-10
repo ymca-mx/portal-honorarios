@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace EgresosUniYMCA.Models
 {
-    public partial class UniversidadContext : DbContext
+    public partial class UniversidadContext : DbContext 
     {
         public virtual DbSet<Adeudo> Adeudo { get; set; }
         public virtual DbSet<AdeudoBiblioteca> AdeudoBiblioteca { get; set; }
@@ -244,8 +244,16 @@ namespace EgresosUniYMCA.Models
         // Unable to generate entity type for table 'dbo.tmpPago'. Please see the warning messages.
         // Unable to generate entity type for table 'dbo.tmpAlumnoDescuento'. Please see the warning messages.
 
-        public UniversidadContext(DbContextOptions<UniversidadContext> options) : base(options)
-        { }
+        public UniversidadContext(DbContextOptions<UniversidadContext> options) 
+            
+            : base(options)
+        {
+        }
+
+
+
+
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
