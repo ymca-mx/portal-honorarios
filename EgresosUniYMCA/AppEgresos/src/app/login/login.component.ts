@@ -27,6 +27,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
+        //localStorage.removeItem('auth_token');
         // subscribe to router event
         this.subscription = this.activatedRoute.queryParams.subscribe(
             (param: any) => {

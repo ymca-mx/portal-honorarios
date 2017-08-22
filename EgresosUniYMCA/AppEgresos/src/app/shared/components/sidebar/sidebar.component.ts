@@ -1,5 +1,6 @@
 ﻿import { Component } from '@angular/core';
-import { Http, Response } from '@angular/http';
+import { Http, Response, RequestOptions } from '@angular/http';
+import { LayoutService } from '../../../layout/services/layout.service'; 
 
 @Component({
     selector: 'app-sidebar',
@@ -7,6 +8,9 @@ import { Http, Response } from '@angular/http';
     styleUrls: ['./sidebar.component.scss']
 })
 export class SidebarComponent {
+    public headers = this.layoutService.setHeaders();
+    public options = new RequestOptions({ headers: this.headers });
+
     isActive = false;
     showMenu = '';
     eventCalled() {
@@ -22,11 +26,22 @@ export class SidebarComponent {
 
     listMenu;
 
-    constructor(private http: Http) {
+    constructor(private http: Http, private layoutService :LayoutService) {
         this.http
-            .get('api/Menu').subscribe(result => {
+            .get('api/Account/menu', this.options).subscribe(
+            result => {
                 this.listMenu = result.json();
-            });
+            },
+            Error =>
+            {
+                if (Error.status === 401)
+                {
+                    alert(Error);
+                    this.layoutService.Unauthorized();
+                }
+                
+            }
+        );
     }
 
 }

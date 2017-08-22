@@ -1,6 +1,6 @@
 ﻿import { Component, OnInit } from '@angular/core';
-import { Router, NavigationEnd } from '@angular/router';
-import { TranslateService } from '@ngx-translate/core';
+import { Http, RequestOptions} from '@angular/http';
+import { LayoutService } from '../../../layout/services/layout.service'; 
 
 @Component({
     selector: 'app-header',
@@ -8,36 +8,29 @@ import { TranslateService } from '@ngx-translate/core';
     styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
+    public headers = this.layoutService.setHeaders();
+    public options = new RequestOptions({ headers: this.headers });
     user: string = "";
-    constructor(private translate: TranslateService, public router: Router) {
-        this.router.events.subscribe((val) => {
-            if (val instanceof NavigationEnd && window.innerWidth <= 992) {
-                this.toggleSidebar();
+    constructor(private http: Http, private layoutService: LayoutService) {
+       
+        this.http
+            .get('api/Account/usuario', this.options).subscribe(
+            result => {
+                let data = result.json();
+                this.user = data.nombre;
             }
-        });
+            );
+
     }
 
     ngOnInit()
     {
-        this.user = localStorage.getItem('user');
     }
-
-    toggleSidebar() {
-        const dom: any = document.querySelector('body');
-        dom.classList.toggle('push-right');
-    }
-
-    rltAndLtr() {
-        const dom: any = document.querySelector('body');
-        dom.classList.toggle('rtl');
-    }
-
+    
     onLoggedout() {
         localStorage.removeItem('auth_token');
         localStorage.removeItem('user');
     }
 
-    changeLang(language: string) {
-        this.translate.use(language);
-    }
+    
 }

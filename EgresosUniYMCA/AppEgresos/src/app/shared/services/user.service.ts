@@ -24,6 +24,7 @@ export class UserService extends BaseService {
   authNavStatus$ = this._authNavStatusSource.asObservable();
 
   private loggedIn = false;
+  private ruta = "http://localhost:6795";
 
   constructor(private http: Http) {
     super();
@@ -43,18 +44,19 @@ export class UserService extends BaseService {
       .catch(this.handleError);
   }  
 
-   login(userName, password) {
+   login(username, password) {
     let headers = new Headers();
-    headers.append('Content-Type', 'application/json');
+    headers.append('Content-Type', 'application/x-www-form-urlencoded');
+    let data = "grant_type=password&username=" + username + "&password=" + password;
 
     return this.http
-        .post('/api/auth/login',
-      JSON.stringify({ userName, password }),{ headers }
+        .post(this.ruta + '/connect/token',
+         data,{ headers }
       )
       .map(res => res.json())
       .map(res => {
-          localStorage.setItem('auth_token', res.auth_token);
-          localStorage.setItem('user', res.user);
+          localStorage.setItem('auth_token', res.access_token);
+          //localStorage.setItem('user', res.user);
         this.loggedIn = true;
         this._authNavStatusSource.next(true);
 

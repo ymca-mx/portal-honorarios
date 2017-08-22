@@ -11,6 +11,7 @@ import {
     ButtonModule,
     SelectItem
 } from 'primeng/primeng';
+import { LayoutService } from '../services/layout.service'
 
 @Component({
     selector: 'altadocente',
@@ -24,15 +25,15 @@ export class AltaDocenteComponent implements OnInit {
     @ViewChildren('foco') vc;
     @BlockUI() blockUI: NgBlockUI;
 
-    headers = new Headers({ 'Content-Type': 'application/json;charset=utf-8' });
-    options = new RequestOptions({ headers: this.headers });
+     public headers = this.layoutService.setHeaders();
+     public options = new RequestOptions({ headers: this.headers });
+
     //tab/
     private items: MenuItem[];
     activeIndex: number = 0;
     tab1: boolean = true;
     tab2: boolean = false;
     tab3: boolean = false;
-
     //catalogos//
     public catalogos;
     public nacimientoLugar;
@@ -61,10 +62,11 @@ export class AltaDocenteComponent implements OnInit {
     public doc: Documento[] = [{ visible: false, nombre: '', nombredb: '', file: '' }, { visible: false, nombredb: '', nombre: '', file: '' }];
     crudestudio: number;
 
-    constructor(private http: Http, private fb: FormBuilder, private confirmationService: ConfirmationService) { }
+    constructor(private http: Http, private fb: FormBuilder, private confirmationService: ConfirmationService, private layoutService: LayoutService) {
+    }
 
     ngOnInit() {
-
+       
         //Wizard//
         this.items = [
             {
@@ -180,8 +182,10 @@ export class AltaDocenteComponent implements OnInit {
         this.nacional.push({ label: '--Seleccionar--', value: '' });
         this.nacional.push({ label: 'Mexicana ', value: '1' });
         this.nacional.push({ label: 'Extranjera ', value: '2' });
-
-        this.http.get('/api/Catalogos/AltaDocenteCatalogo').subscribe(result => {
+        
+        this.http.get('/api/Catalogos/AltaDocenteCatalogo', this.options)
+            .subscribe(
+            result => {
             this.catalogos = result.json();
             //Lugar Nacimiento
             this.nacimientoLugar = [{ label: '--Seleccionar--', value: '' }];
@@ -197,7 +201,14 @@ export class AltaDocenteComponent implements OnInit {
             //ofetas tipo//
             this.ofertasTipo = this.catalogos.ofertasTipo;
             this.blockUI.stop();
-        });
+            },
+            Error =>
+            {
+                this.blockUI.stop();
+                alert(Error.status );
+                this.layoutService.Unauthorized();
+            }
+            );
 
 
     }
@@ -215,7 +226,7 @@ export class AltaDocenteComponent implements OnInit {
     ChangeEstado() {
 
         if (this.sclEstado != "") {
-            this.http.get('/api/catalogos/Municipio/' + this.sclEstado).subscribe(result => {
+            this.http.get('/api/catalogos/Municipio/' + this.sclEstado, this.options).subscribe(result => {
                 this.municipio = result.json();
 
             });
@@ -396,7 +407,7 @@ export class AltaDocenteComponent implements OnInit {
             input.append("Files", doc[i].file, doc[i].nombredb);
         }
 
-        return this.http.post("/api/AltaDocente/GuardarAchivo", input).subscribe(res => {
+        return this.http.post("/api/AltaDocente/GuardarAchivo", input, this.options).subscribe(res => {
             console.log(res);
             this.blockUI.stop();
         });;

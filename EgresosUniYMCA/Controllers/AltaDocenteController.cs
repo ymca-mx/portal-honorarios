@@ -8,6 +8,7 @@ using EgresosUniYMCA.Models;
 using EgresosUniYMCA.DTO;
 using Newtonsoft.Json.Linq;
 using System.IO;
+using Microsoft.AspNetCore.Authorization;
 
 namespace EgresosUniYMCA.Controllers
 {
@@ -18,7 +19,7 @@ namespace EgresosUniYMCA.Controllers
         private readonly UniversidadContext _db;
         public AltaDocenteController(UniversidadContext db) { _db = db; }
 
-        [HttpPost("AltaDocente")]
+        [Authorize, HttpPost("AltaDocente")]
         public IActionResult AltaDocente([FromBody] DTODocente docente)
         {
             DTODocenteBasico docente1 = new DTODocenteBasico();
@@ -72,7 +73,7 @@ namespace EgresosUniYMCA.Controllers
             return Ok(docente1);
         }
 
-        [HttpPost("Estudio")]
+        [Authorize, HttpPost("Estudio")]
         public IActionResult Estudio([FromBody] DTOEstudio Estudio)
         {
 
@@ -189,7 +190,7 @@ namespace EgresosUniYMCA.Controllers
             return Ok(estudioDocente);
         }
 
-        [HttpPost("GuardarAchivo")]
+        [Authorize, HttpPost("GuardarAchivo")]
         public async Task<IActionResult> Upload(IList<IFormFile> files)
         {
 

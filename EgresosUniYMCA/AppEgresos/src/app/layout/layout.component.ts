@@ -8,30 +8,13 @@ import { LayoutService } from './services/layout.service';
     styleUrls: ['./layout.component.scss']
 })
 export class LayoutComponent implements OnInit {
-    homeDetails: HomeDetails;
     constructor(public router: Router, private layoutService: LayoutService) { }
 
     ngOnInit() {
         if (this.router.url === '/') {
             this.router.navigate(['/home']);
         }
-        
-        this.layoutService.getHomeDetails()
-            .subscribe((homeDetails: HomeDetails) => {
-                this.homeDetails = homeDetails;
-            },
-            error => {
-                // this.notificationService.printErrorMessage(error);
-                alert(error);
-                this.router.navigate(['/login']);
-                localStorage.removeItem('auth_token');
-                localStorage.removeItem('user');
-            });
-
+      
     }
 
-}
-
-export interface HomeDetails {
-    message: string;
 }

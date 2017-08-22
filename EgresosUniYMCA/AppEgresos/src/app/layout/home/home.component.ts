@@ -44,11 +44,6 @@ export class HomeComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.route
-            .queryParams
-            .subscribe(params => {
-                let user = params['user'];
-            });
     }
 
     public closeAlert(alert: any) {
